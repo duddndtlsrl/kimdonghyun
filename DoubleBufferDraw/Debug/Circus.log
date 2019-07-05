@@ -1,0 +1,6 @@
+﻿  DoubleBufferDraw.cpp
+d:\work\winapi\doublebufferdraw\doublebufferdraw.cpp(149): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\work\winapi\doublebufferdraw\doublebufferdraw.cpp(150): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\work\winapi\doublebufferdraw\doublebufferdraw.cpp(100): warning C4700: 초기화되지 않은 'pt' 지역 변수를 사용했습니다.
+  Circus.vcxproj -> D:\Work\WINAPI\Debug\DoubleBufferDraw.exe
+  Circus.vcxproj -> D:\Work\WINAPI\Debug\DoubleBufferDraw.pdb (Full PDB)

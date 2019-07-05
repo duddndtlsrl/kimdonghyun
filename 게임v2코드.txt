@@ -1,0 +1,379 @@
+#include<stdio.h>
+#include<conio.h>
+#include<Windows.h>
+#include<time.h>
+#include<string.h>
+#include<stdlib.h>
+#define TRUE 1
+#define FALSE 0
+#define ATTACK 32
+#define DEFEND1 'z'
+#define UPATTACKSTAT 4
+#define UPHEALTHSTAT 10
+#define PLAYER 1
+#define ENEMY 0
+#define 가위 0
+#define 바위 1
+#define 보 2
+
+typedef struct character
+{
+	char Name[20];
+	int Attack;
+	int CurHealth;
+	int MaxHealth;
+	int EXP;
+	int MaxEXP;
+	int GetEXP;
+	int Lv;
+	int Type;
+}Character;
+
+int GameOver = 0;
+
+int Stage;
+Character Player, *Enemy;
+
+void LoadCharacter(FILE* f, Character* P)
+{
+	fscanf(f, "%d", &P->Attack);
+	fscanf(f, "%d", &P->MaxHealth);
+	P->CurHealth = P->MaxHealth;
+	fscanf(f, "%d", &P->MaxEXP);
+	P->EXP = 0;
+	fscanf(f, "%d", &P->GetEXP);
+	fscanf(f, "%d", &P->Lv);
+	fscanf(f, "%d", &P->Type);
+}
+
+void Loading()
+{
+	FILE* f;
+	printf("플레이어 이름 입력 : ");
+	scanf("%s", Player.Name);
+	f = fopen("Default.txt", "r");
+	if (f == NULL)
+	{
+		printf("플레이정보가 없습니다.\n");
+		GameOver = 1;
+		system("pause");
+		return;
+	}
+	LoadCharacter(f, &Player);
+	fscanf(f, "%d", &Stage);
+	Enemy = (Character*)malloc(sizeof(Character)*Stage);
+	for (int i = 0; i < Stage; i++)
+	{
+		fscanf(f, "%s", Enemy[i].Name);
+		LoadCharacter(f, &Enemy[i]);
+	}
+}
+
+
+
+void ShowPlayerInfo(Character* C)
+{
+	printf("======%s(%dLv)======\n", C->Name, C->Lv);
+	printf("공격력 = %d\t생명력 = %d/%d\n", C->Attack, C->CurHealth, C->MaxHealth);
+	printf("경험치 = %d/%d\tGetEXP : %d\n", C->EXP, C->MaxEXP, C->GetEXP);
+}
+
+
+void ShowGameInfo(Character* Player, Character* Enemy)
+{
+	ShowPlayerInfo(Player);
+	ShowPlayerInfo(Enemy);
+}
+
+
+void Attack(Character* P1, Character* P2)
+{
+	P2->CurHealth -= P1->Attack;
+	if (P2->CurHealth < 0)
+		P2->CurHealth = 0;
+}
+
+void LvUp(Character* P1)
+{
+	int Num;
+	printf("%s 레벨업!!\n", P1->Name);
+	Num = rand() % (UPATTACKSTAT + 1);
+	P1->Attack += Num;
+	printf("공격력 %d 증가!!\n", Num);
+	Num = rand() % (UPHEALTHSTAT + 1);
+	P1->MaxHealth += Num;
+	printf("생명력 %d 증가!!\n", Num);
+	P1->EXP = 0;
+	P1->MaxEXP += P1->MaxEXP * 0.3;
+	P1->Lv++;
+	P1->CurHealth = P1->MaxHealth;
+}
+
+
+void ExpUp(Character* P1, Character* P2)
+{
+
+	int Num;
+	system("cls");
+	printf("%s 승리!!\n", P1->Name);
+	printf("%s가 경험치 %d를 얻었습니다.\n", P1->Name, P2->GetEXP);
+	if (P2->Type == PLAYER && P2->GetEXP == 0)
+	{
+
+		printf("Game Over\n");
+		GameOver = 1;
+		system("pause");
+		return;
+	}
+	P1->EXP += P2->GetEXP;
+	if (P2->Type == PLAYER)
+	{
+		P2->EXP = 0;
+		P2->GetEXP = 0;
+	}
+	if (P1->EXP >= P1->MaxEXP)
+		LvUp(P1);
+
+	if (P1->Type == PLAYER)
+		P1->GetEXP = P1->EXP;
+	P2->CurHealth = P2->MaxHealth;
+	system("pause");
+}
+
+void ShowChoice(int Num,Character* P)
+{
+	printf("%s : ", P->Name);
+	switch (Num)
+	{
+	case 가위:
+		printf("가위!!\n");
+		break;
+	case 바위:
+		printf("바위!!\n");
+		break;
+	case 보:
+		printf("보!!\n");
+		break;
+	}
+}
+
+void Fight(Character* Player, Character* Enemy)
+{
+	int PlayerChoice,EnemyChoice;
+	char tmp[256];
+	int Count = 0;
+	while (1)
+	{
+		system("cls");
+		ShowGameInfo(Player, Enemy);
+		printf("%s 입력\n",Player->Name);
+		while (1)
+		{
+			printf("가위 : 0 , 바위 : 1 , 보 : 2\n");
+			printf("입력 : ");
+			scanf("%d", &PlayerChoice);
+			if (PlayerChoice >= 0 && PlayerChoice <= 2)
+				break;
+			printf("잘못입력 다시\n");
+		}
+		EnemyChoice = rand() % 3;
+		ShowChoice(PlayerChoice,Player);
+		ShowChoice(EnemyChoice,Enemy);
+		if (PlayerChoice == EnemyChoice)
+			printf("무승부...\n");
+		else if (PlayerChoice > EnemyChoice)
+		{
+			if (EnemyChoice == 가위 && PlayerChoice == 보)
+				Attack(Enemy, Player);
+			else
+				Attack(Player, Enemy);
+		}
+		else
+		{
+			if (PlayerChoice == 가위 && EnemyChoice == 보)
+				Attack(Player, Enemy);
+			else
+				Attack(Enemy, Player);
+		}
+		system("pause");
+		if (Player->CurHealth <= 0)
+		{
+			system("cls");
+			ShowGameInfo(Player, Enemy);
+			printf("%s승리!!", Enemy->Name);
+			ExpUp(Enemy, Player);
+			return;
+		}
+		else if (Enemy->CurHealth <= 0)
+		{
+			system("cls");
+			ShowGameInfo(Player, Enemy);
+			printf("%s승리!!", Player->Name);
+			ExpUp(Player,Enemy);
+			return;
+		}
+	}
+	return;
+}
+
+void DunGeon()
+{
+	int Select;
+	while (!GameOver)
+	{
+		system("cls");
+		printf("=====던전 입구=====\n");
+		for (int i = 1; i <= Stage; i++)
+			printf("   %d.%d층던전 : [%s]\n", i,i,Enemy[i - 1].Name);
+		printf("   %d.돌아가기\n", Stage + 1);
+		printf("선택 : ");
+		scanf("%d", &Select);
+		if (Select == Stage + 1)
+			return;
+		else if (Select >= 1 && Select <= Stage)
+			Fight(&Player, &Enemy[Select - 1]);
+	}
+}
+
+void FileList()
+{
+	FILE* f;
+	int Count = 0;
+	char buf[256];
+	for (int i = 1; i <= 10; i++)
+	{
+		sprintf(buf, "SaveFile%d.txt", i);
+		f = fopen(buf, "r");
+		printf("%d번슬롯 : (파일여부 : ", i);
+		if (f == NULL)
+			printf("X)\n");
+		else
+		{
+			printf("O)\n");
+			Count++;
+			fclose(f);
+		}
+	}
+	printf("선택 : ");
+}
+
+void SaveInfo(Character* P,FILE* f)
+{
+	fprintf(f, "%s ", P->Name);
+	fprintf(f, "%d ", P->Attack);
+	fprintf(f, "%d ", P->CurHealth);
+	fprintf(f, "%d ", P->EXP);
+	fprintf(f, "%d ", P->GetEXP);
+	fprintf(f, "%d ", P->Lv);
+	fprintf(f, "%d ", P->MaxEXP);
+	fprintf(f, "%d ", P->MaxHealth);
+	fprintf(f, "%d\n", P->Type);
+}
+
+void Save()
+{
+	FILE* f;
+	char buf[256];
+	int Select;
+	system("cls");
+	printf("=====Save=====\n");
+	FileList();
+	scanf("%d", &Select);
+	if (Select > 10 || Select < 1)
+	{
+		printf("잘못 선택 하셧습니다.");
+		return;
+	}
+	sprintf(buf, "SaveFile%d.txt", Select);
+	f = fopen(buf, "w");
+	SaveInfo(&Player,f);
+	fprintf(f, "%d\n", Stage);
+	for (int i = 0; i < Stage; i++)
+		SaveInfo(&Enemy[i], f);
+	fclose(f);
+}
+
+void LoadInfo(Character* P, FILE* f)
+{
+	fscanf(f, "%s", P->Name);
+	fscanf(f, "%d", &P->Attack);
+	fscanf(f, "%d", &P->CurHealth);
+	fscanf(f, "%d", &P->EXP);
+	fscanf(f, "%d", &P->GetEXP);
+	fscanf(f, "%d", &P->Lv);
+	fscanf(f, "%d", &P->MaxEXP);
+	fscanf(f, "%d", &P->MaxHealth);
+	fscanf(f, "%d", &P->Type);
+}
+
+void Load()
+{
+	FILE* f;
+	char buf[256];
+	int Select;
+	system("cls");
+	printf("=====Load=====\n");
+	FileList();
+	scanf("%d", &Select);	
+	if (Select > 10 || Select < 1)
+	{
+		printf("잘못 선택 하셧습니다.");
+		return;
+	}
+	sprintf(buf, "SaveFile%d.txt", Select);
+	f = fopen(buf, "r");
+	if (f == NULL)
+	{
+		printf("해당 저장 파일이 없습니다.\n");
+		system("pause");
+		return;
+	}
+	LoadInfo(&Player, f);
+	fscanf(f, "%d", &Stage);
+	for (int i = 0; i < Stage; i++)
+		LoadInfo(&Enemy[i], f);
+	fclose(f);
+}
+
+void main()
+{
+	int Select;
+	srand(time(NULL));
+	Loading();
+	while (!GameOver)
+	{
+		system("cls");
+		printf("=======DunGeon=======\n");
+		printf("    1.던전 입장\n");
+		printf("    2.Play 정보\n");
+		printf("    3.Save\n");
+		printf("    4.Load\n");
+		printf("    5.종료\n");
+		printf("    입력 : ");
+		scanf("%d", &Select);
+		system("cls");
+		switch (Select)
+		{
+		case 1:
+			DunGeon();
+			break;
+		case 2:
+			ShowPlayerInfo(&Player);
+			printf("====================\n");
+			printf("\n\n=====Enemy=====\n");
+			for (int i = 0; i < Stage; i++)
+				ShowPlayerInfo(&Enemy[i]);
+			system("pause");
+			break;
+		case 3:
+			Save();
+			break;
+		case 4:
+			Load();
+			break;
+		case 5:
+			GameOver = 1;
+			break;
+		}
+	}
+}

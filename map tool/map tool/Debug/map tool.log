@@ -1,0 +1,5 @@
+﻿  win_main.cpp
+c:\users\c-02\source\repos\map tool\map tool\win_main.cpp(69): warning C4101: 'str' :참조되지 않은 지역 변수입니다.
+c:\users\c-02\source\repos\map tool\map tool\win_main.cpp(106): warning C4101: 'str' :참조되지 않은 지역 변수입니다.
+  map tool.vcxproj -> C:\Users\C-02\source\repos\map tool\Debug\map tool.exe
+  map tool.vcxproj -> C:\Users\C-02\source\repos\map tool\Debug\map tool.pdb (Full PDB)
