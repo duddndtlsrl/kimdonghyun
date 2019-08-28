@@ -1,4 +1,2 @@
-﻿  GameFrame.cpp
-  GameFrameWork.cpp
-  코드를 생성하고 있습니다...
-  GameFrame.vcxproj -> D:\Development\학원자료\강의자료\Work\WINAPI\Debug\GameFrame.exe
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(452,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (GameFrame_New.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  GameFrame.vcxproj -> C:\Users\B-4\Desktop\duddndtlsrl\kimdonghyun\GameFrame_New\Debug\GameFrame.exe

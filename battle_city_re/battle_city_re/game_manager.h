@@ -4,6 +4,14 @@
 
 using namespace std;
 
+enum COLLIDE
+{
+	COLLIDE_UP,
+	COLLIDE_DOWN,
+	COLLIDE_LEFT,
+	COLLIDE_RIGHT
+};
+
 class tank;
 class block;
 class res_manager;
@@ -11,6 +19,7 @@ class game_manager
 {
 private:
 	static game_manager* instance;
+	tank* player;
 	res_manager* res_manage;
 	vector<block*> blocks;
 	vector<tank*> tanks;
@@ -29,8 +38,9 @@ public:
 	void update(HWND hWnd);
 	void init(HWND hWnd);
 	void load_map();
-	void input(float delta_time);
-	void is_collide(tank* my);
+	void input();
+	bool is_collide(tank* my);
+	POINT where_player();
 	bool set_enemy();
 	game_manager();
 	~game_manager();

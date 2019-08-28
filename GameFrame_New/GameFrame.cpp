@@ -59,8 +59,31 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
+	HDC hdc;
+	PAINTSTRUCT ps;
+	HANDLE hFile;
+	char buf[200];
+	DWORD dwRead;
+	RECT rt;
+
 	switch (iMessage)
 	{
+	case WM_LBUTTONDOWN:
+		hFile = CreateFile("Text.txt", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+		if (hFile != INVALID_HANDLE_VALUE)
+		{
+			ReadFile(hFile, buf, 1024, &dwRead, NULL);
+			CloseHandle(hFile);
+			InvalidateRect(hWnd, NULL, TRUE);
+		}
+		return 0;
+	case WM_PAINT:
+		hdc = BeginPaint(hWnd, &ps);
+		GetClientRect(hWnd, &rt);
+		DrawText(hdc, buf, -1, &rt, DT_WORDBREAK);
+		EndPaint(hWnd, &ps);
+		return 0;
+
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;

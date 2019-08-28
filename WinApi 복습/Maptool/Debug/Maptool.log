@@ -1,0 +1,3 @@
+﻿  MapToolMain.cpp
+C:\Users\B-4\Desktop\duddndtlsrl\kimdonghyun\WinApi 복습\Maptool\MapToolMain.cpp(108,10): warning C4101:  'str' :참조되지 않은 지역 변수입니다.
+  Maptool.vcxproj -> C:\Users\B-4\Desktop\duddndtlsrl\kimdonghyun\WinApi 복습\Maptool\Debug\Maptool.exe

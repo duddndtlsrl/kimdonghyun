@@ -47,4 +47,8 @@ bitmap::bitmap()
 
 bitmap::~bitmap()
 {
+	SelectObject(mem_dc, old_bit);
+	DeleteObject(my_bit);
+	DeleteObject(old_bit);
+	DeleteObject(mem_dc);
 }

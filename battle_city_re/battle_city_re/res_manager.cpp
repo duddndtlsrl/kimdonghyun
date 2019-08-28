@@ -1,13 +1,12 @@
 #include "res_manager.h"
 #include "bitmap.h"
 #include "block.h"
+#include"tank.h"
 #include "block_nature.h"
+#include "enemy.h"
 
 void res_manager::init(HDC hdc)
-{
-	back_bit = new bitmap();
-	back_bit->init(hdc, "", true);
-	
+{	
 	char* ch= new char[20];
 	for (int i = 0; i < BLOCK_END; i++)
 	{
@@ -54,15 +53,32 @@ void res_manager::init(HDC hdc)
 	return;
 }
 
-void res_manager::draw(HDC hdc, vector<block*>* blocks)
+void res_manager::draw(HDC hdc, vector<block*>* blocks, vector<tank*>* tanks)
 {
+	bitmap* back_bit=new bitmap();
+	back_bit->init(hdc, "", true);
+	
 	for (auto iter = blocks->begin(); iter != blocks->end(); iter++)
 	{
 		if ((*iter)->get_state() == BLOCK_BUSH || (*iter)->get_state() == BLOCK_END)
 			continue;
 		block_bit[(*iter)->get_state()]->draw(back_bit->get_dc(), (*iter)->get_pt().x, (*iter)->get_pt().y, false, true);
 	}
-	/*ÅÊÅ©*/
+	for (auto iter = tanks->begin(); iter != tanks->end(); iter++)
+	{
+		if ((*iter)->dead())
+			continue;
+		else
+		{
+			float x, y;
+			(*iter)->get_pos(x, y);
+			enemy* p = dynamic_cast<enemy*>(*iter);
+			if (p!=NULL)
+				enemy_bit[(p->get_dir()-1)*2]->draw(back_bit->get_dc(), x, y);
+			else
+				player_bit[((*iter)->get_dir()-1)*2]->draw(back_bit->get_dc(), x, y);
+		}
+	}
 	for (auto iter = blocks->begin(); iter != blocks->end(); iter++)
 	{
 		if ((*iter)->get_state() == BLOCK_BUSH)
@@ -70,6 +86,8 @@ void res_manager::draw(HDC hdc, vector<block*>* blocks)
 	}
 
 	back_bit->draw(hdc, 0, 0, true, false);
+	delete(back_bit);
+	
 
 	return;
 }

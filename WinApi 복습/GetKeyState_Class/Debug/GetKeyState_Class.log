@@ -1,0 +1,6 @@
+﻿  Bitmap.cpp
+  Gamemanager.cpp
+  WinMain.cpp
+  코드를 생성하고 있습니다...
+C:\Users\B-4\Desktop\duddndtlsrl\kimdonghyun\WinApi 복습\GetKeyState_Class\WinMain.cpp(45,14): warning C4101:  'ps' :참조되지 않은 지역 변수입니다.
+  GetKeyState_Class.vcxproj -> C:\Users\B-4\Desktop\duddndtlsrl\kimdonghyun\WinApi 복습\GetKeyState_Class\Debug\GetKeyState_Class.exe

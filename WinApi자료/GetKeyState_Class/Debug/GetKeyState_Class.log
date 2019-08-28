@@ -1,6 +1,0 @@
-﻿  Bitmap.cpp
-  Gamemanager.cpp
-  GetKeyState_Class.cpp
-c1xx : fatal error C1083: 소스 파일을 열 수 없습니다. 'GetKeyState_Class.cpp': No such file or directory
-  WinMain.cpp
-  코드를 생성하고 있습니다...

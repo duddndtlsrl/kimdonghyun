@@ -25,7 +25,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR IpszCmd
 	WndClass.style = CS_HREDRAW | CS_VREDRAW;
 	RegisterClass(&WndClass);
 
-	hWnd = CreateWindow(IpszClass, IpszClass, WS_OVERLAPPEDWINDOW, 0, 0, 14*BL_WIDTH, 13*BL_HEIGHT,
+	hWnd = CreateWindow(IpszClass, IpszClass, WS_OVERLAPPEDWINDOW, 0, 0, 14*BL_WIDTH, 14*BL_HEIGHT,
 		NULL, (HMENU)NULL, hInstance, NULL);
 	ShowWindow(hWnd, nCmdShow);
 

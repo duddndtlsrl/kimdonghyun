@@ -3,9 +3,14 @@
 #include <vector>
 
 #define BL_WIDTH 50
-#define BL_HEIGHT 37
+#define BL_HEIGHT 50
 
 using namespace std;
+
+typedef struct MP {
+	float x;
+	float y;
+}MP;
 
 enum BLOCK
 {
@@ -79,11 +84,11 @@ enum ICON
 	ICON_END
 };
 class block;
+class tank;
 class bitmap;
 class res_manager
 {
 private:
-	bitmap* back_bit;
 	bitmap* block_bit[BLOCK_END];
 	bitmap* player_bit[PLAYER_END];
 	bitmap* enemy_bit[ENEMY_END];
@@ -92,7 +97,7 @@ private:
 	bitmap* object_bit[OBJECT_END];
 public:
 	void init(HDC hdc);
-	void draw(HDC hdc, vector<block*>* blocks);
+	void draw(HDC hdc, vector<block*>* blocks, vector<tank*>* tanks);
 	res_manager();
 	~res_manager();
 };

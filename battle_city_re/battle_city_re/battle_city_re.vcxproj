@@ -146,6 +146,7 @@
     <ClCompile Include="bitmap.cpp" />
     <ClCompile Include="block.cpp" />
     <ClCompile Include="block_nature.cpp" />
+    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="game_manager.cpp" />
     <ClCompile Include="res_manager.cpp" />
     <ClCompile Include="tank.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="bitmap.h" />
     <ClInclude Include="block.h" />
     <ClInclude Include="block_nature.h" />
+    <ClInclude Include="enemy.h" />
     <ClInclude Include="game_manager.h" />
     <ClInclude Include="res_manager.h" />
     <ClInclude Include="tank.h" />

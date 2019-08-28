@@ -37,6 +37,17 @@ void block::set_rc()
 	return;
 }
 
+void block::set_point()
+{
+	mid_point.x = (my_rc.right - my_rc.left) / 2;
+	mid_point.y = (my_rc.bottom - my_rc.top) / 2;
+}
+
+MP * block::get_p()
+{
+	return &mid_point;
+}
+
 void block::get_damage()
 {
 }
@@ -49,6 +60,11 @@ int block::get_state()
 POINT block::get_pt()
 {
 	return pt;
+}
+
+RECT * block::get_rc()
+{
+	return &my_rc;
 }
 
 block::block()
