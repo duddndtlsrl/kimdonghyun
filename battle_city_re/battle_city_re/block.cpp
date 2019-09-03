@@ -34,6 +34,8 @@ void block::set_rc()
 			my_rc.left = BL_WIDTH*pt.x + (float)BL_WIDTH / 2;
 	}
 
+	set_point();
+
 	return;
 }
 

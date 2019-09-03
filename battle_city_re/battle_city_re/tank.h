@@ -25,9 +25,11 @@ public:
 	void set_rc();
 	void set_point();
 	virtual void move(float delta_time, int dir);
-	BOOL is_collide(DF* point);
+	void search_area(block* map[][13]);
+	BOOL is_collide(block* p);
 	RECT* get_rc();
 	DF* get_p();
+	DF* get_tile();
 	int get_dir();
 	void set_cur_tile();
 	void correct_pos(RECT* rc);

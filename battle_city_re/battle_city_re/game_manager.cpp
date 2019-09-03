@@ -66,15 +66,36 @@ void game_manager::input()
 bool game_manager::is_collide(tank* my)
 {
 	RECT rc_temp;
-	enemy* p = dynamic_cast<enemy*>(my);
-	
-	for (int i = 0; i < 13; i++)
+	/*enemy* p = dynamic_cast<enemy*>(my);*/
+	int direct = my->get_dir();
+
+	if (direct == 1)
 	{
-		for (int j = 0; j < 13; j++)
-		{
-			if (blocks[i][j]->get_state() == BLOCK_BUSH || blocks[i][j]->get_state() == BLOCK_END)
-				continue;
-		}
+		if (my->is_collide(blocks[(int)my->get_tile()[1].y][(int)my->get_tile()[0].x]))
+			return true;
+		else if (my->is_collide(blocks[(int)my->get_tile()[1].y][(int)my->get_tile()[1].x]))
+			return true;
+	}
+	if (direct == 2)
+	{
+		if (my->is_collide(blocks[(int)my->get_tile()[0].y][(int)my->get_tile()[0].x]))
+			return true;
+		else if (my->is_collide(blocks[(int)my->get_tile()[0].y][(int)my->get_tile()[1].x]))
+			return true;
+	}
+	if (direct == 3)
+	{
+		if (my->is_collide(blocks[(int)my->get_tile()[0].y][(int)my->get_tile()[0].x]))
+			return true;
+		else if (my->is_collide(blocks[(int)my->get_tile()[1].y][(int)my->get_tile()[0].x]))
+			return true;
+	}
+	if (direct == 4)
+	{
+		if (my->is_collide(blocks[(int)my->get_tile()[0].y][(int)my->get_tile()[1].x]))
+			return true;
+		else if (my->is_collide(blocks[(int)my->get_tile()[1].y][(int)my->get_tile()[1].x]))
+			return true;
 	}
 
 	return false;

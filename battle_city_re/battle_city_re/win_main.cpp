@@ -45,6 +45,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR IpszCmd
 		{
 			if (start)
 				game_manager::get_instance()->init(hWnd);
+			
 			game_manager::get_instance()->update(hWnd);
 			start = false;
 		}

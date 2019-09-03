@@ -1,7 +1,7 @@
 #include "tank.h"
 #include "res_manager.h"
 #include "game_manager.h"
-
+#include "block.h"
 
 
 void tank::init(float x, float y)
@@ -47,16 +47,34 @@ void tank::move(float delta_time, int dir)
 
 	end_line();
 	
-
 	set_rc();
 
 	return;
 
 }
 
-BOOL tank::is_collide(DF* point)
+void tank::search_area(block* map[][13])
 {
-	if (sqrt(pow(mid_point.x - point->x, 2) + pow(mid_point.y - point->y, 2)) < BL_WIDTH)
+	
+}
+
+BOOL tank::is_collide(block *p)
+{
+	float compare;
+	
+	if (p->get_state() < BLOCK_ICE)
+	{
+		if (p->get_state() % 5 != 0)
+			compare = BL_WIDTH * 3 / 4;
+		else
+			compare = BL_WIDTH;
+	}
+	else 
+	{
+		compare = BL_WIDTH;
+	}
+
+	if (sqrt(pow(mid_point.x - p->get_p()->x, 2) + pow(mid_point.y - p->get_p()->y, 2)) < compare)
 		return true;
 	
 	return false;
@@ -72,13 +90,19 @@ DF * tank::get_p()
 	return &mid_point;
 }
 
+DF * tank::get_tile()
+{
+	return cur_tile;
+}
+
 int tank::get_dir()
 {
 	return (int)direction;
 }
 
 void tank::set_cur_tile()
-{
+{	
+	
 	cur_tile[0].x = pos_x / BL_WIDTH;
 	cur_tile[1].x = cur_tile[0].x;
 
