@@ -21,12 +21,13 @@ void tank::set_rc()
 	my_rc.right = pos_x + BL_WIDTH;
 
 	set_point();
+	set_cur_tile();
 }
 
 void tank::set_point()
 {
-	mid_point.x = (my_rc.right - my_rc.left) / 2;
-	mid_point.y = (my_rc.bottom - my_rc.top) / 2;
+	mid_point.x = pos_x+(my_rc.right - my_rc.left) / 2;
+	mid_point.y = pos_y+(my_rc.bottom - my_rc.top) / 2;
 }
 
 void tank::move(float delta_time, int dir)
@@ -61,6 +62,9 @@ void tank::search_area(block* map[][13])
 BOOL tank::is_collide(block *p)
 {
 	float compare;
+	
+	if (p->get_state() == BLOCK_END || p->get_state() == BLOCK_ICE || p->get_state() == BLOCK_BUSH)
+		return false;
 	
 	if (p->get_state() < BLOCK_ICE)
 	{
@@ -109,6 +113,9 @@ void tank::set_cur_tile()
 	cur_tile[0].y = pos_y / BL_WIDTH;
 	cur_tile[1].y = cur_tile[0].y;
 	
+	if ((int)pos_x%BL_WIDTH < 4 || (int)pos_x%BL_WIDTH>36 || (int)pos_y%BL_WIDTH < 4 || (int)pos_y%BL_WIDTH>36)
+		return;
+
 	if ((int)pos_x%BL_WIDTH != 0)
 		cur_tile[1].x += 1;
 

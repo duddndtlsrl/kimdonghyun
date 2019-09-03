@@ -69,34 +69,44 @@ bool game_manager::is_collide(tank* my)
 	/*enemy* p = dynamic_cast<enemy*>(my);*/
 	int direct = my->get_dir();
 
+	int x, y, x1, y1;
+
 	if (direct == 1)
 	{
-		if (my->is_collide(blocks[(int)my->get_tile()[1].y][(int)my->get_tile()[0].x]))
-			return true;
-		else if (my->is_collide(blocks[(int)my->get_tile()[1].y][(int)my->get_tile()[1].x]))
-			return true;
+		x = (int)my->get_tile()[0].x;
+		x1 = (int)my->get_tile()[1].x;
+		y = (int)my->get_tile()[1].y-1;
+		y1 = y;
 	}
 	if (direct == 2)
 	{
-		if (my->is_collide(blocks[(int)my->get_tile()[0].y][(int)my->get_tile()[0].x]))
-			return true;
-		else if (my->is_collide(blocks[(int)my->get_tile()[0].y][(int)my->get_tile()[1].x]))
-			return true;
+		x = (int)my->get_tile()[0].x;
+		x1 = (int)my->get_tile()[1].x;
+		y = (int)my->get_tile()[0].y+1;
+		y1 = y;
 	}
 	if (direct == 3)
 	{
-		if (my->is_collide(blocks[(int)my->get_tile()[0].y][(int)my->get_tile()[0].x]))
-			return true;
-		else if (my->is_collide(blocks[(int)my->get_tile()[1].y][(int)my->get_tile()[0].x]))
-			return true;
+		y = (int)my->get_tile()[0].y;
+		y1 = (int)my->get_tile()[1].y;
+		x = (int)my->get_tile()[1].x-1;
+		x1 = x;
 	}
 	if (direct == 4)
 	{
-		if (my->is_collide(blocks[(int)my->get_tile()[0].y][(int)my->get_tile()[1].x]))
-			return true;
-		else if (my->is_collide(blocks[(int)my->get_tile()[1].y][(int)my->get_tile()[1].x]))
-			return true;
+		y = (int)my->get_tile()[0].y;
+		y1 = (int)my->get_tile()[1].y;
+		x = (int)my->get_tile()[0].x+1;
+		x1 = x;
 	}
+
+	if (x, x1 > 12 || x, x1 < 0 || y, y1>12 || y, y1 < 0)
+		return false;
+
+	if (my->is_collide(blocks[y][x]))
+		return true;
+	else if (my->is_collide(blocks[y1][x1]))
+		return true;
 
 	return false;
 }
@@ -136,13 +146,13 @@ void game_manager::update(HWND hWnd)
 	delta_time = (cur_time - last_time)/1000.f;
 	last_time = cur_time;
 	input();
-	for (auto iter = tanks.begin(); iter != tanks.end(); iter++)
+	/*for (auto iter = tanks.begin(); iter != tanks.end(); iter++)
 	{
 		enemy* p = dynamic_cast<enemy*>(*iter);
 		if (p != NULL)
 			p->move(delta_time);
-	}
-	
+	}*/
+
 	HDC hdc = GetDC(hWnd);
 	res_manage->draw(hdc, blocks, &tanks);
 	ReleaseDC(hWnd, hdc);
@@ -169,7 +179,11 @@ void game_manager::load_map()
 				q->set_attribute(stat);
 				blocks[i][j] = q;
 			}
-
+			
+			if (i == 1)
+				int a=0;
+			
+			blocks[i][j]->init(stat, j, i);
 		}
 	}
 	CloseHandle(hfile);

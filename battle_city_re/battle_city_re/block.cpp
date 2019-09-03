@@ -23,7 +23,7 @@ void block::set_rc()
 	if (state < BLOCK_ICE)
 	{
 		if (state % 5 == 0)
-			return;
+			;
 		else if (state % 5 == 1)
 			my_rc.bottom = BL_HEIGHT*pt.y + (float)BL_HEIGHT / 2;
 		else if (state % 5 == 2)
@@ -41,8 +41,8 @@ void block::set_rc()
 
 void block::set_point()
 {
-	mid_point.x = (my_rc.right - my_rc.left) / 2;
-	mid_point.y = (my_rc.bottom - my_rc.top) / 2;
+	mid_point.x = my_rc.left+(my_rc.right - my_rc.left) / 2;
+	mid_point.y = my_rc.top+(my_rc.bottom - my_rc.top) / 2;
 }
 
 DF * block::get_p()
