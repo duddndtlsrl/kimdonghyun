@@ -43,7 +43,7 @@ void block::set_point()
 	mid_point.y = (my_rc.bottom - my_rc.top) / 2;
 }
 
-MP * block::get_p()
+DF * block::get_p()
 {
 	return &mid_point;
 }

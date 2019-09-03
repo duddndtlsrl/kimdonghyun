@@ -21,7 +21,7 @@ private:
 	static game_manager* instance;
 	tank* player;
 	res_manager* res_manage;
-	vector<block*> blocks;
+	block* blocks[13][13];
 	vector<tank*> tanks;
 	int stage=1;
 	int enemy_count = 0;

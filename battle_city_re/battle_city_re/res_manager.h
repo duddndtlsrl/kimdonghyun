@@ -7,10 +7,10 @@
 
 using namespace std;
 
-typedef struct MP {
+typedef struct doublefloat {
 	float x;
 	float y;
-}MP;
+}DF;
 
 enum BLOCK
 {
@@ -97,7 +97,7 @@ private:
 	bitmap* object_bit[OBJECT_END];
 public:
 	void init(HDC hdc);
-	void draw(HDC hdc, vector<block*>* blocks, vector<tank*>* tanks);
+	void draw(HDC hdc, block* blocks[][13], vector<tank*>* tanks);
 	res_manager();
 	~res_manager();
 };

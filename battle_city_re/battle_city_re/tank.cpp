@@ -54,9 +54,9 @@ void tank::move(float delta_time, int dir)
 
 }
 
-BOOL tank::is_collide(MP* point)
+BOOL tank::is_collide(DF* point)
 {
-	if (sqrt(pow(mid_point.x - point->x, 2) + pow(mid_point.y - point->y, 2)) > BL_WIDTH)
+	if (sqrt(pow(mid_point.x - point->x, 2) + pow(mid_point.y - point->y, 2)) < BL_WIDTH)
 		return true;
 	
 	return false;
@@ -67,7 +67,7 @@ RECT * tank::get_rc()
 	return &my_rc;
 }
 
-MP * tank::get_p()
+DF * tank::get_p()
 {
 	return &mid_point;
 }
@@ -75,6 +75,24 @@ MP * tank::get_p()
 int tank::get_dir()
 {
 	return (int)direction;
+}
+
+void tank::set_cur_tile()
+{
+	cur_tile[0].x = pos_x / BL_WIDTH;
+	cur_tile[1].x = cur_tile[0].x;
+
+	cur_tile[0].y = pos_y / BL_WIDTH;
+	cur_tile[1].y = cur_tile[0].y;
+	
+	if ((int)pos_x%BL_WIDTH != 0)
+		cur_tile[1].x += 1;
+
+	if ((int)pos_y%BL_WIDTH != 0)
+		cur_tile[1].y += 1;
+
+
+	return;
 }
 
 void tank::correct_pos(RECT* rc)
@@ -129,3 +147,4 @@ tank::tank()
 tank::~tank()
 {
 }
+

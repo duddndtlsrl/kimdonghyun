@@ -68,14 +68,12 @@ bool game_manager::is_collide(tank* my)
 	RECT rc_temp;
 	enemy* p = dynamic_cast<enemy*>(my);
 	
-	for (auto iter = blocks.begin(); iter != blocks.end(); iter++)
+	for (int i = 0; i < 13; i++)
 	{
-		if ((*iter)->get_state() == BLOCK_END || (*iter)->get_state()==BLOCK_BUSH)
-			continue;
-		
-		if (my->is_collide((*iter)->get_p()))
+		for (int j = 0; j < 13; j++)
 		{
-			return true;
+			if (blocks[i][j]->get_state() == BLOCK_BUSH || blocks[i][j]->get_state() == BLOCK_END)
+				continue;
 		}
 	}
 
@@ -125,15 +123,13 @@ void game_manager::update(HWND hWnd)
 	}
 	
 	HDC hdc = GetDC(hWnd);
-	res_manage->draw(hdc, &blocks, &tanks);
+	res_manage->draw(hdc, blocks, &tanks);
 	ReleaseDC(hWnd, hdc);
 	return;
 }
 
 void game_manager::load_map()
 {
-	blocks.reserve(300);
-	block* p;
 
 	char ch[6];
 	wsprintf(ch, "map_%d", stage);
@@ -144,16 +140,15 @@ void game_manager::load_map()
 		{
 			DWORD writeB;
 			int stat;
-			p = new block();
+			blocks[i][j] = new block();
 			ReadFile(hfile, &stat, sizeof(int), &writeB, NULL);
 			if (stat >= BLOCK_ICE && stat<BLOCK_HQ)
 			{
 				block_nature* q = new block_nature();
 				q->set_attribute(stat);
-				p = q;
+				blocks[i][j] = q;
 			}
-			p->init(stat, j, i);
-			blocks.push_back(p);
+
 		}
 	}
 	CloseHandle(hfile);

@@ -53,16 +53,20 @@ void res_manager::init(HDC hdc)
 	return;
 }
 
-void res_manager::draw(HDC hdc, vector<block*>* blocks, vector<tank*>* tanks)
+void res_manager::draw(HDC hdc, block* blocks[][13], vector<tank*>* tanks)
 {
 	bitmap* back_bit=new bitmap();
 	back_bit->init(hdc, "", true);
 	
-	for (auto iter = blocks->begin(); iter != blocks->end(); iter++)
+	for (int i = 0; i < 13; i++)
 	{
-		if ((*iter)->get_state() == BLOCK_BUSH || (*iter)->get_state() == BLOCK_END)
-			continue;
-		block_bit[(*iter)->get_state()]->draw(back_bit->get_dc(), (*iter)->get_pt().x, (*iter)->get_pt().y, false, true);
+		for(int j=0; j<13; j++)
+		{
+			if (blocks[i][j]->get_state() == BLOCK_BUSH || blocks[i][j]->get_state() == BLOCK_END)
+				continue;
+			
+			block_bit[blocks[i][j]->get_state()]->draw(back_bit->get_dc(), blocks[i][j]->get_pt().x, blocks[i][j]->get_pt().y, false, true);
+		}
 	}
 	for (auto iter = tanks->begin(); iter != tanks->end(); iter++)
 	{
@@ -79,10 +83,13 @@ void res_manager::draw(HDC hdc, vector<block*>* blocks, vector<tank*>* tanks)
 				player_bit[((*iter)->get_dir()-1)*2]->draw(back_bit->get_dc(), x, y);
 		}
 	}
-	for (auto iter = blocks->begin(); iter != blocks->end(); iter++)
+	for (int i = 0; i < 13; i++)
 	{
-		if ((*iter)->get_state() == BLOCK_BUSH)
-			block_bit[(*iter)->get_state()]->draw(back_bit->get_dc(), (*iter)->get_pt().x, (*iter)->get_pt().y, false, true);
+		for (int j = 0; j < 13; j++)
+		{
+			if (blocks[i][j]->get_state() == BLOCK_BUSH)
+				block_bit[blocks[i][j]->get_state()]->draw(back_bit->get_dc(), blocks[i][j]->get_pt().x, blocks[i][j]->get_pt().y, false, true);
+		}
 	}
 
 	back_bit->draw(hdc, 0, 0, true, false);

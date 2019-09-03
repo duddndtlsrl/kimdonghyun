@@ -15,7 +15,8 @@ class tank
 protected:
 	float pos_x;
 	float pos_y;
-	MP mid_point;
+	DF mid_point;
+	DF cur_tile[2];
 	RECT my_rc;
 	DIR direction = DIR_UP;
 	bool is_dead=false;
@@ -24,10 +25,11 @@ public:
 	void set_rc();
 	void set_point();
 	virtual void move(float delta_time, int dir);
-	BOOL is_collide(MP* point);
+	BOOL is_collide(DF* point);
 	RECT* get_rc();
-	MP* get_p();
+	DF* get_p();
 	int get_dir();
+	void set_cur_tile();
 	void correct_pos(RECT* rc);
 	virtual bool end_line();
 	void get_pos(float& x, float& y);
@@ -35,4 +37,6 @@ public:
 	tank();
 	~tank();
 };
+
+
 
