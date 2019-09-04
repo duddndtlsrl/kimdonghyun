@@ -66,8 +66,7 @@ void game_manager::input()
 bool game_manager::is_collide(tank* my)
 {
 	my->set_cur_tile(blocks);
-
-	enemy* p = dynamic_cast<enemy*>(my);
+	
 	int direct = my->get_dir();
 
 	int x, y, x1, y1;
@@ -77,8 +76,6 @@ bool game_manager::is_collide(tank* my)
 		x = (int)my->get_tile()[0].x;
 		x1 = (int)my->get_tile()[1].x;
 		y = (int)my->get_tile()[1].y-1;
-		if(y<0)
-			y = (int)my->get_tile()[0].y;
 		y1 = y;
 	}
 	if (direct == 2)
@@ -86,8 +83,6 @@ bool game_manager::is_collide(tank* my)
 		x = (int)my->get_tile()[0].x;
 		x1 = (int)my->get_tile()[1].x;
 		y = (int)my->get_tile()[0].y+1;
-		if (y > 12)
-			y = (int)my->get_tile()[0].y;
 		y1 = y;
 	}
 	if (direct == 3)
@@ -95,8 +90,6 @@ bool game_manager::is_collide(tank* my)
 		y = (int)my->get_tile()[0].y;
 		y1 = (int)my->get_tile()[1].y;
 		x = (int)my->get_tile()[1].x-1;
-		if(x<0)
-			x = (int)my->get_tile()[0].x;
 		x1 = x;
 	}
 	if (direct == 4)
@@ -104,10 +97,11 @@ bool game_manager::is_collide(tank* my)
 		y = (int)my->get_tile()[0].y;
 		y1 = (int)my->get_tile()[1].y;
 		x = (int)my->get_tile()[0].x+1;
-		if (x > 12)
-			x = (int)my->get_tile()[0].x;
 		x1 = x;
 	}
+
+	if (x < 0 || x>12 || y < 0 || y>12)
+		return true;
 	
 	if (my->is_collide(blocks[y][x]))
 		return true;

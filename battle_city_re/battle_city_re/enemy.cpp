@@ -3,7 +3,7 @@
 #include "res_manager.h"
 
 
-void enemy::move(float delta_time)
+void enemy::move(float delta_time, int dir)
 {	
 	search_area();
 
@@ -32,17 +32,6 @@ void enemy::search_area()
 	{
 	
 		direction = (DIR)i;
-		/*pos_x = compare_x;
-		pos_y = compare_y;
-		
-		int j = 1;
-		if (i % 2 == 1)
-			j = -1;
-		
-		if (i > DIR_DOWN)
-			pos_x += j*delta_time * 100;
-		else
-			pos_y += j*delta_time * 100;*/
 
 		if (game_manager::get_instance()->is_collide(this))
 			continue;
@@ -74,6 +63,8 @@ void enemy::search_area()
 
 enemy::enemy()
 {
+	pos_hq.x = 6;
+	pos_hq.y = 11;
 }
 
 

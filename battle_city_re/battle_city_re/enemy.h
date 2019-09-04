@@ -3,12 +3,10 @@
 class enemy :public tank
 {
 private:
-	POINT pos_player;
-	float compare_x;
-	float compare_y;
+	POINT pos_hq;
 	DIR last_dir;
 public:
-	void move(float delta_time);
+	void move(float delta_time, int dir=0);
 	void search_area();
 	enemy();
 	~enemy();
