@@ -9,8 +9,7 @@ private:
 	DIR last_dir;
 public:
 	void move(float delta_time);
-	void search_area(float delta_time);
-	bool end_line();
+	void search_area();
 	enemy();
 	~enemy();
 };

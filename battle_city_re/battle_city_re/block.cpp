@@ -59,6 +59,15 @@ int block::get_state()
 	return (int)state;
 }
 
+bool block::is_collide(RECT * rc)
+{
+	RECT rc_temp;
+	if (IntersectRect(&rc_temp, rc, &my_rc))
+		return true;
+
+	return false;
+}
+
 POINT block::get_pt()
 {
 	return pt;

@@ -4,10 +4,8 @@
 
 
 void enemy::move(float delta_time)
-{
-	pos_player = game_manager::get_instance()->where_player();
-	
-	search_area(delta_time);
+{	
+	search_area();
 
 	if (direction == DIR_UP)
 		pos_y += delta_time*-100;
@@ -15,19 +13,17 @@ void enemy::move(float delta_time)
 		pos_y += delta_time * 100;
 	else if (direction == DIR_LEFT)
 		pos_x += delta_time*-100;
-	else if (direction == DIR_RIGHT)
-		pos_x += delta_time * 100;
 	else
-		return;
+		pos_x += delta_time * 100;
 
-	tank::end_line();
-	
+	end_line();
+
 	set_rc();
-
+	
 	return;
 }
 
-void enemy::search_area(float delta_time)
+void enemy::search_area()
 {
 	int randm[4];
 	memset(randm, 0, sizeof(int) * 4);
@@ -36,7 +32,7 @@ void enemy::search_area(float delta_time)
 	{
 	
 		direction = (DIR)i;
-		pos_x = compare_x;
+		/*pos_x = compare_x;
 		pos_y = compare_y;
 		
 		int j = 1;
@@ -46,9 +42,9 @@ void enemy::search_area(float delta_time)
 		if (i > DIR_DOWN)
 			pos_x += j*delta_time * 100;
 		else
-			pos_y += j*delta_time * 100;
+			pos_y += j*delta_time * 100;*/
 
-		if (game_manager::get_instance()->is_collide(this) || end_line())
+		if (game_manager::get_instance()->is_collide(this))
 			continue;
 		else
 		{
@@ -74,14 +70,6 @@ void enemy::search_area(float delta_time)
 	}
 	
 	return;
-}
-
-bool enemy::end_line()
-{
-	if (compare_x < 0 || compare_x > BL_WIDTH * 12 || compare_y < 0 || compare_y > BL_HEIGHT * 12)
-		return true;
-
-	return false;
 }
 
 enemy::enemy()

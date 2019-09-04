@@ -20,8 +20,14 @@ void tank::set_rc()
 	my_rc.left = pos_x;
 	my_rc.right = pos_x + BL_WIDTH;
 
+	int flex = 2;
+
+	small_rc.top = my_rc.top + flex;
+	small_rc.bottom = my_rc.bottom - flex;
+	small_rc.left = my_rc.left + flex;
+	small_rc.right = my_rc.right - flex;
+
 	set_point();
-	set_cur_tile();
 }
 
 void tank::set_point()
@@ -104,25 +110,41 @@ int tank::get_dir()
 	return (int)direction;
 }
 
-void tank::set_cur_tile()
+void tank::set_cur_tile(block* blocks[][13])
 {	
+	cur_tile[0].x = 13;
+	cur_tile[0].y = 13;
+	cur_tile[1].x = 13;
+	cur_tile[1].y = 13;
+
+
+	for (int i = 0; i < 13; i++)
+	{
+		for (int j = 0; j < 13; j++)
+		{
+			if (blocks[i][j]->is_collide(&small_rc))
+			{
+				if (cur_tile[0].x != 13 && cur_tile[0].y != 13)
+				{
+					if (cur_tile[0].x != j)
+						cur_tile[1].x = j;
+					if (cur_tile[0].y != i)
+						cur_tile[1].y = i;
+				}
+				else
+				{
+					cur_tile[0].x = j;
+					cur_tile[0].y = i;
+				}
+			}
+		}
+	}
 	
-	cur_tile[0].x = pos_x / BL_WIDTH;
-	cur_tile[1].x = cur_tile[0].x;
+	if (cur_tile[1].x == 13)
+		cur_tile[1].x = cur_tile[0].x;
 
-	cur_tile[0].y = pos_y / BL_WIDTH;
-	cur_tile[1].y = cur_tile[0].y;
-	
-	if ((int)pos_x%BL_WIDTH < 4 || (int)pos_x%BL_WIDTH>36 || (int)pos_y%BL_WIDTH < 4 || (int)pos_y%BL_WIDTH>36)
-		return;
-
-	if ((int)pos_x%BL_WIDTH != 0)
-		cur_tile[1].x += 1;
-
-	if ((int)pos_y%BL_WIDTH != 0)
-		cur_tile[1].y += 1;
-
-
+	if (cur_tile[1].y == 13)
+		cur_tile[1].y = cur_tile[0].y;
 	return;
 }
 

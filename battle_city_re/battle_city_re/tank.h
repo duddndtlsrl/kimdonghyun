@@ -18,6 +18,7 @@ protected:
 	DF mid_point;
 	DF cur_tile[2];
 	RECT my_rc;
+	RECT small_rc;
 	DIR direction = DIR_UP;
 	bool is_dead=false;
 public:
@@ -31,9 +32,9 @@ public:
 	DF* get_p();
 	DF* get_tile();
 	int get_dir();
-	void set_cur_tile();
+	void set_cur_tile(block* blocks[][13]);
 	void correct_pos(RECT* rc);
-	virtual bool end_line();
+	bool end_line();
 	void get_pos(float& x, float& y);
 	BOOL dead();
 	tank();

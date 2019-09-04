@@ -65,8 +65,9 @@ void game_manager::input()
 
 bool game_manager::is_collide(tank* my)
 {
-	RECT rc_temp;
-	/*enemy* p = dynamic_cast<enemy*>(my);*/
+	my->set_cur_tile(blocks);
+
+	enemy* p = dynamic_cast<enemy*>(my);
 	int direct = my->get_dir();
 
 	int x, y, x1, y1;
@@ -76,6 +77,8 @@ bool game_manager::is_collide(tank* my)
 		x = (int)my->get_tile()[0].x;
 		x1 = (int)my->get_tile()[1].x;
 		y = (int)my->get_tile()[1].y-1;
+		if(y<0)
+			y = (int)my->get_tile()[0].y;
 		y1 = y;
 	}
 	if (direct == 2)
@@ -83,6 +86,8 @@ bool game_manager::is_collide(tank* my)
 		x = (int)my->get_tile()[0].x;
 		x1 = (int)my->get_tile()[1].x;
 		y = (int)my->get_tile()[0].y+1;
+		if (y > 12)
+			y = (int)my->get_tile()[0].y;
 		y1 = y;
 	}
 	if (direct == 3)
@@ -90,6 +95,8 @@ bool game_manager::is_collide(tank* my)
 		y = (int)my->get_tile()[0].y;
 		y1 = (int)my->get_tile()[1].y;
 		x = (int)my->get_tile()[1].x-1;
+		if(x<0)
+			x = (int)my->get_tile()[0].x;
 		x1 = x;
 	}
 	if (direct == 4)
@@ -97,12 +104,11 @@ bool game_manager::is_collide(tank* my)
 		y = (int)my->get_tile()[0].y;
 		y1 = (int)my->get_tile()[1].y;
 		x = (int)my->get_tile()[0].x+1;
+		if (x > 12)
+			x = (int)my->get_tile()[0].x;
 		x1 = x;
 	}
-
-	if (x, x1 > 12 || x, x1 < 0 || y, y1>12 || y, y1 < 0)
-		return false;
-
+	
 	if (my->is_collide(blocks[y][x]))
 		return true;
 	else if (my->is_collide(blocks[y1][x1]))
@@ -146,12 +152,12 @@ void game_manager::update(HWND hWnd)
 	delta_time = (cur_time - last_time)/1000.f;
 	last_time = cur_time;
 	input();
-	/*for (auto iter = tanks.begin(); iter != tanks.end(); iter++)
+	for (auto iter = tanks.begin(); iter != tanks.end(); iter++)
 	{
 		enemy* p = dynamic_cast<enemy*>(*iter);
 		if (p != NULL)
 			p->move(delta_time);
-	}*/
+	}
 
 	HDC hdc = GetDC(hWnd);
 	res_manage->draw(hdc, blocks, &tanks);

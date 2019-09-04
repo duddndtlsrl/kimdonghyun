@@ -15,6 +15,7 @@ public:
 	DF* get_p();
 	virtual void get_damage();
 	int get_state();
+	bool is_collide(RECT* rc);
 	POINT get_pt();
 	RECT* get_rc();
 	block();
