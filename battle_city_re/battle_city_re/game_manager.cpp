@@ -58,7 +58,6 @@ void game_manager::input()
 		return;
 	}
 	
-	player->set_cur_tile(blocks, false);
 	player->move(delta_time, dir);
 
 	return;
@@ -66,7 +65,8 @@ void game_manager::input()
 
 bool game_manager::is_collide(tank* my)
 {
-
+	my->set_cur_tile(blocks);
+	
 	int direct = my->get_dir();
 
 	int x, y, x1, y1;
@@ -102,7 +102,7 @@ bool game_manager::is_collide(tank* my)
 
 	if (x < 0 || x>12 || y < 0 || y>12)
 		return true;
-
+	
 	if (my->is_collide(blocks[y][x]))
 		return true;
 	else if (my->is_collide(blocks[y1][x1]))
@@ -150,10 +150,7 @@ void game_manager::update(HWND hWnd)
 	{
 		enemy* p = dynamic_cast<enemy*>(*iter);
 		if (p != NULL)
-		{
-			p->set_cur_tile(blocks, true);
 			p->move(delta_time);
-		}
 	}
 
 	HDC hdc = GetDC(hWnd);

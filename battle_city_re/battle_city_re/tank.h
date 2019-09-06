@@ -32,7 +32,7 @@ public:
 	DF* get_p();
 	DF* get_tile();
 	int get_dir();
-	void set_cur_tile(block* blocks[][13], bool enemy);
+	void set_cur_tile(block* blocks[][13]);
 	void correct_pos(RECT* rc);
 	bool end_line();
 	void get_pos(float& x, float& y);

@@ -36,33 +36,26 @@ void enemy::search_area()
 		if (game_manager::get_instance()->is_collide(this))
 			continue;
 		else
+		{
+			if (direction == last_dir)
+				return;
 			randm[i - 1] = i;
+		}
 	}
 
-	int count = 0;
 	for (int i = 0; i < 4; i++)
 	{
-		if (randm[i] != 0)
-			count++;
-	}
+		srand(GetTickCount());
+		int num = (rand() % 4) + 1;
 
-	if (count < 3)
-	{
-
-		
-	}
-	
-	else 
-	{
-		for (int i = 0; i < 4; i++)
+		if (randm[num - 1] != 0)
 		{
-			
-			srand(GetTickCount());
-			int num = (rand() % 100) + 1;
-			
-			
-
+			direction = (DIR)num;
+			last_dir = direction;
+			break;
 		}
+		else
+			continue;
 	}
 	
 	return;
@@ -72,7 +65,6 @@ enemy::enemy()
 {
 	pos_hq.x = 6;
 	pos_hq.y = 11;
-	last_dir = DIR_END;
 }
 
 
