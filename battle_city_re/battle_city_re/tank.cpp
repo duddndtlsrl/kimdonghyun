@@ -110,19 +110,24 @@ int tank::get_dir()
 	return (int)direction;
 }
 
-void tank::set_cur_tile(block* blocks[][13])
+void tank::set_cur_tile(block* blocks[][13], bool enemy)
 {	
 	cur_tile[0].x = 13;
 	cur_tile[0].y = 13;
 	cur_tile[1].x = 13;
 	cur_tile[1].y = 13;
 
+	RECT* rc;
+	if (enemy)
+		rc = &my_rc;
+	else
+		rc = &small_rc;
 
 	for (int i = 0; i < 13; i++)
 	{
 		for (int j = 0; j < 13; j++)
 		{
-			if (blocks[i][j]->is_collide(&small_rc))
+			if (blocks[i][j]->is_collide(rc))
 			{
 				if (cur_tile[0].x != 13 && cur_tile[0].y != 13)
 				{

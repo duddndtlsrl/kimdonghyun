@@ -1,15 +1,2 @@
 ﻿  enemy.cpp
-  코드를 생성하고 있습니다...
-  컴파일하고 있습니다...
-  game_manager.cpp
-c:\users\b-4\desktop\duddndtlsrl\kimdonghyun\battle_city_re\battle_city_re\game_manager.cpp(25): warning C4244: '=': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\b-4\desktop\duddndtlsrl\kimdonghyun\battle_city_re\battle_city_re\game_manager.cpp(26): warning C4244: '=': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\b-4\desktop\duddndtlsrl\kimdonghyun\battle_city_re\battle_city_re\game_manager.cpp(119): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\b-4\desktop\duddndtlsrl\kimdonghyun\battle_city_re\battle_city_re\game_manager.cpp(120): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\b-4\desktop\duddndtlsrl\kimdonghyun\battle_city_re\battle_city_re\game_manager.cpp(145): warning C4244: '=': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\b-4\desktop\duddndtlsrl\kimdonghyun\battle_city_re\battle_city_re\game_manager.cpp(186): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  코드를 생성하고 있습니다...
-  건너뛰고 있습니다... (관련된 변경 내용 없음)
-  res_manager.cpp
-  battle_city_re.vcxproj -> C:\Users\B-4\Desktop\duddndtlsrl\kimdonghyun\battle_city_re\Debug\battle_city_re.exe
-  battle_city_re.vcxproj -> C:\Users\B-4\Desktop\duddndtlsrl\kimdonghyun\battle_city_re\Debug\battle_city_re.pdb (Full PDB)
+  battle_city_re.vcxproj -> C:\Users\A10\Kim\kimdonghyun\kimdonghyun\battle_city_re\Debug\battle_city_re.exe
