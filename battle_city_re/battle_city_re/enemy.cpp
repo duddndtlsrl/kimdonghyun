@@ -5,8 +5,7 @@
 
 void enemy::move(float delta_time, int dir)
 {	
-	if (game_manager::get_instance()->is_collide(this) || frame > 200)/*빈도를 뜸하게 해보자*/
-		search_area();
+	search_area();
 
 	if (direction == DIR_UP)
 		pos_y += delta_time*-100;
@@ -21,12 +20,22 @@ void enemy::move(float delta_time, int dir)
 
 	set_rc();
 	
-	frame++;
+	if (cur_tile[1].y >= pos_hq.y)
+	{
+		if (cur_tile[1].x > pos_hq.x)
+			prior_dir = DIR_LEFT;
+		if (cur_tile[0].x < pos_hq.x)
+			prior_dir = DIR_RIGHT;
+	}
+
 	return;
 }
 
 void enemy::search_area()
 {
+	if (last_dir == DIR_LEFT)
+		last_dir=DIR_LEFT;
+	
 	int randm[4];
 	memset(randm, 0, sizeof(int) * 4);
 	int count = 0;
@@ -45,31 +54,20 @@ void enemy::search_area()
 		}
 	}/*갈 수 있는 방향을 찾아보자*/
 
-	if (last_dir == DIR_UP || last_dir == DIR_DOWN)
+	if (randm[(int)last_dir - 1] != 0)
 	{
-		for (int i = DIR_LEFT; i < DIR_END; i++)
-		{
-			if (randm[i - 1] != 0)
-			{
-				direction = (DIR)i;
-				return;
-			}
-		}
+		direction = last_dir;
+		if (randm[(int)prior_dir - 1] != 0)
+			direction = prior_dir;
+
+		return;
 	}
-	else if(last_dir == DIR_LEFT || last_dir == DIR_RIGHT)
-	{
-		for (int i = DIR_UP; i < DIR_LEFT; i++)
-		{
-			if (randm[i - 1] != 0)
-			{
-				direction = (DIR)i;
-				return;
-			}
-		}
-	}/*x, y축을 전환시켜보자*/
+
 
 	srand(GetTickCount());
+
 	
+
 	while(true)
 	{
 		int num = (rand() % 99) + 1;
@@ -101,6 +99,8 @@ enemy::enemy()
 {
 	pos_hq.x = 6;
 	pos_hq.y = 11;
+	last_dir = DIR_DOWN;
+	prior_dir = DIR_DOWN;
 }
 
 

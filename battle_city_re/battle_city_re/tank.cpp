@@ -84,8 +84,11 @@ BOOL tank::is_collide(block *p)
 		compare = BL_WIDTH;
 	}
 
-	if (sqrt(pow(mid_point.x - p->get_p()->x, 2) + pow(mid_point.y - p->get_p()->y, 2)) < compare)
+	if (sqrt(pow(mid_point.x - p->get_p()->x, 2) + pow(mid_point.y - p->get_p()->y, 2)) <= compare)
+	{
+		correct_pos(p->get_rc());
 		return true;
+	}
 	
 	return false;
 }
