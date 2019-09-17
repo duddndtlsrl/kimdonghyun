@@ -80,16 +80,20 @@ BOOL tank::is_collide(block *p)
 			compare = BL_WIDTH;
 	}
 	else 
-	{
 		compare = BL_WIDTH;
-	}
 
-	if (sqrt(pow(mid_point.x - p->get_p()->x, 2) + pow(mid_point.y - p->get_p()->y, 2)) <= compare)
+	if (direction == DIR_UP || direction == DIR_DOWN)
 	{
-		correct_pos(p->get_rc());
-		return true;
+		if (abs(mid_point.y - p->get_p()->y) <= compare)
+			return true;
+	}
+	else
+	{
+		if (abs(mid_point.x - p->get_p()->x) <= compare)
+			return true;
 	}
 	
+
 	return false;
 }
 
@@ -132,6 +136,9 @@ void tank::set_cur_tile(block* blocks[][13], bool enemy)
 		{
 			if (blocks[i][j]->is_collide(rc))
 			{
+				if (slip==false && blocks[i][j]->get_state() == BLOCK_ICE)
+					slip = true;
+				
 				if (cur_tile[0].x != 13 && cur_tile[0].y != 13)
 				{
 					if (cur_tile[0].x != j)
@@ -153,6 +160,29 @@ void tank::set_cur_tile(block* blocks[][13], bool enemy)
 
 	if (cur_tile[1].y == 13)
 		cur_tile[1].y = cur_tile[0].y;
+
+	if (slip)
+	{
+		switch (direction)
+		{
+		case DIR_UP:
+			if ((int)cur_tile[0].y== (int)cur_tile[1].y && blocks[(int)cur_tile[0].y - 1][(int)cur_tile[0].x]->get_state() != BLOCK_ICE)
+				slip = false;
+			break;
+		case DIR_DOWN:
+			if (blocks[(int)cur_tile[1].y + 1][(int)cur_tile[0].x]->get_state() != BLOCK_ICE)
+				slip = false;
+			break;
+		case DIR_LEFT:
+			if (blocks[(int)cur_tile[0].y][(int)cur_tile[0].x - 1]->get_state() != BLOCK_ICE)
+				slip = false;
+			break;
+		case DIR_RIGHT:
+			if (blocks[(int)cur_tile[0].y][(int)cur_tile[1].x + 1]->get_state() != BLOCK_ICE)
+				slip = false;
+			break;
+		}
+	}
 	return;
 }
 
@@ -185,6 +215,13 @@ bool tank::end_line()
 
 	return true;
 
+}
+
+bool tank::is_slip()
+{
+	if(slip)
+		return true;
+	return false;
 }
 
 void tank::get_pos(float & x, float & y)

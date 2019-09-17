@@ -1,4 +1,13 @@
-﻿  game_manager.cpp
-c:\users\세이버 savor\desktop\minesweeper\minesweeper\game_manager.cpp(64): warning C4244: '인수': 'double'에서 'std::size_t'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  minesweeper.vcxproj -> C:\Users\세이버 savor\Desktop\minesweeper\Debug\minesweeper.exe
-  minesweeper.vcxproj -> C:\Users\세이버 savor\Desktop\minesweeper\Debug\minesweeper.pdb (Full PDB)
+﻿  bitmap.cpp
+  cell.cpp
+  game_manager.cpp
+c:\users\a10\kim\kimdonghyun\kimdonghyun\minesweeper\minesweeper\game_manager.cpp(64): warning C4244: '인수': 'double'에서 'size_t'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  mine.cpp
+  res_manager.cpp
+c:\users\a10\kim\kimdonghyun\kimdonghyun\minesweeper\minesweeper\res_manager.cpp(11): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 'sprintf' 선언을 참조하십시오.
+c:\users\a10\kim\kimdonghyun\kimdonghyun\minesweeper\minesweeper\res_manager.cpp(13): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1774): note: 'sprintf' 선언을 참조하십시오.
+  winmain.cpp
+  코드를 생성하고 있습니다...
+  minesweeper.vcxproj -> C:\Users\A10\Kim\kimdonghyun\kimdonghyun\minesweeper\Debug\minesweeper.exe

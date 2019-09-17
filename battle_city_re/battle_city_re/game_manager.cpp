@@ -145,7 +145,14 @@ void game_manager::update(HWND hWnd)
 	cur_time = GetTickCount();
 	delta_time = (cur_time - last_time)/1000.f;
 	last_time = cur_time;
-	input();
+	if (player->is_slip())
+	{
+		player->set_cur_tile(blocks);
+		player->move(delta_time, player->get_dir());
+	}
+	else
+		input();
+	
 	for (auto iter = tanks.begin(); iter != tanks.end(); iter++)
 	{
 		enemy* p = dynamic_cast<enemy*>(*iter);

@@ -21,6 +21,7 @@ protected:
 	RECT small_rc;
 	DIR direction = DIR_UP;
 	bool is_dead=false;
+	bool slip = false;
 public:
 	void init(float x, float y);
 	void set_rc();
@@ -35,6 +36,7 @@ public:
 	void set_cur_tile(block* blocks[][13], bool enemy=false);
 	void correct_pos(RECT* rc);
 	bool end_line();
+	bool is_slip();
 	void get_pos(float& x, float& y);
 	BOOL dead();
 	tank();
