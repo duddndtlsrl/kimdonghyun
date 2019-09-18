@@ -8,9 +8,17 @@
 using namespace std;
 
 typedef struct doublefloat {
+	
+	bool operator==(doublefloat a)
+	{
+		return a.x == x && a.y == y;
+	}
+
 	float x;
 	float y;
 }DF;
+
+
 
 enum BLOCK
 {

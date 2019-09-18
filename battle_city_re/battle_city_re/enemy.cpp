@@ -5,8 +5,8 @@
 
 void enemy::move(float delta_time, int dir)
 {	
-	if(!slip)
-		search_area();
+	
+	search_area();
 
 	if (direction == DIR_UP)
 		pos_y += delta_time*-100;
@@ -16,6 +16,7 @@ void enemy::move(float delta_time, int dir)
 		pos_x += delta_time*-100;
 	else
 		pos_x += delta_time * 100;
+
 
 	end_line();
 
@@ -90,7 +91,6 @@ enemy::enemy()
 {
 	pos_hq.x = 6;
 	pos_hq.y = 11;
-	last_dir = DIR_DOWN;
 	prior_dir = DIR_DOWN;
 }
 

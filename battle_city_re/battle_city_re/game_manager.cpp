@@ -29,9 +29,7 @@ void game_manager::init(HWND hWnd)
 }
 
 void game_manager::input()
-{
-	player->set_cur_tile(blocks);
-	
+{	
 	if (GetKeyState(VK_SPACE) & 0x8000)
 	{
 
@@ -60,6 +58,8 @@ void game_manager::input()
 		return;
 	}
 
+	player->set_cur_tile(blocks);
+	player->on_the_ice(blocks);
 	player->move(delta_time, dir);
 
 	return;
@@ -112,6 +112,12 @@ bool game_manager::is_collide(tank* my)
 	return false;
 }
 
+block *(*game_manager::get_block())[13]
+{
+	return blocks;
+}
+
+
 POINT game_manager::where_player()
 {
 	float x, y;
@@ -149,7 +155,7 @@ void game_manager::update(HWND hWnd)
 	if (player->is_slip())
 	{
 		player->set_cur_tile(blocks);
-		player->move(delta_time, player->get_dir());
+		player->move(delta_time);
 	}
 	else
 		input();
