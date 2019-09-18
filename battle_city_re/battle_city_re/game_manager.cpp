@@ -30,6 +30,8 @@ void game_manager::init(HWND hWnd)
 
 void game_manager::input()
 {
+	player->set_cur_tile(blocks);
+	
 	if (GetKeyState(VK_SPACE) & 0x8000)
 	{
 
@@ -57,8 +59,7 @@ void game_manager::input()
 	{
 		return;
 	}
-	
-	player->set_cur_tile(blocks);
+
 	player->move(delta_time, dir);
 
 	return;
@@ -124,7 +125,7 @@ POINT game_manager::where_player()
 bool game_manager::set_enemy()
 {
 	enemy_count++;
-	if (enemy_count == 2)
+	if (enemy_count == 10)
 		return false;
 	enemy* q=new enemy();
 	tank* p = new tank();

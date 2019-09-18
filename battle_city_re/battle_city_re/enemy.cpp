@@ -68,11 +68,11 @@ void enemy::search_area()
 
 			if (num >= 1 && num < 25+adv[0]-adv[1])
 				dir = 1;
-			else if (num >= 25-adv[1] && num < 50+adv[1]-adv[2])
+			else if (num >= 25-adv[1]+adv[0] && num < 50+adv[1]-adv[2])
 				dir = 2;
-			else if (num >= 50-adv[2] && num < 75+adv[2]-adv[3])
+			else if (num >= 50-adv[2]+adv[1] && num < 75+adv[2]-adv[3])
 				dir = 3;
-			else if (num >= 75-adv[3] && num < 100)
+			else if (num >= 75-adv[3]+adv[2] && num < 100)
 				dir = 4;
 
 			if (randm[dir - 1] != 0)
@@ -83,10 +83,7 @@ void enemy::search_area()
 			}
 		}
 	
-
-	frame = 0;
-
-	return;
+		return;
 }
 
 enemy::enemy()
