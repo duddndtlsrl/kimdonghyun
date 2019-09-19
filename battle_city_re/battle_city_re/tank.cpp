@@ -20,7 +20,7 @@ void tank::set_rc()
 	my_rc.left = pos_x;
 	my_rc.right = pos_x + BL_WIDTH;
 
-	int flex = 5;
+	int flex = 2;
 
 	small_rc.top = my_rc.top + flex;
 	small_rc.bottom = my_rc.bottom - flex;
@@ -125,7 +125,10 @@ void tank::set_cur_tile(block* blocks[][13], bool enemy)
 		rc = &small_rc;
 
 	if (state == STATE_EDGE)
+	{
 		flag = new bool();
+		*flag = true;
+	}
 
 	for (int i = 0; i < 13; i++)
 	{
@@ -197,60 +200,72 @@ void tank::edge_of_ice(block * blocks[][13])
 			case DIR_UP:
 				if (blocks[(int)cur_tile[0].y][(int)cur_tile[i].x]->get_state() == BLOCK_ICE)
 				{
-					if(blocks[(int)cur_tile[0].y-1][(int)cur_tile[i].x]->get_state() != BLOCK_ICE)
+					if(blocks[(int)cur_tile[1].y-1][(int)cur_tile[i].x]->get_state() != BLOCK_ICE)
 					{
-						if (state == STATE_EDGE)
-							break;
-						else 
+						if(state==STATE_ICE)
 						{
 							correct_pos(blocks[(int)cur_tile[1].y - 1][(int)cur_tile[0].x]->get_rc());
 							state = STATE_EDGE;
 						}
+					}
+					else
+					{
+						if (state == STATE_EDGE)
+							state = STATE_ICE;			
 					}
 				}
 				break;
 			case DIR_DOWN:
 				if (blocks[(int)cur_tile[0].y][(int)cur_tile[i].x]->get_state() == BLOCK_ICE)
 				{
-					if (state == STATE_EDGE)
-						break;
-					else
+					if (blocks[(int)cur_tile[0].y + 1][(int)cur_tile[i].x]->get_state() != BLOCK_ICE)
 					{
-						if (blocks[(int)cur_tile[0].y + 1][(int)cur_tile[i].x]->get_state() != BLOCK_ICE)
+						if (state == STATE_ICE)
 						{
 							correct_pos(blocks[(int)cur_tile[0].y + 1][(int)cur_tile[0].x]->get_rc());
 							state = STATE_EDGE;
 						}
+					}
+					else
+					{
+						if (state == STATE_EDGE)
+							state = STATE_ICE;
 					}
 				}
 				break;
 			case DIR_LEFT:
 				if (blocks[(int)cur_tile[i].y][(int)cur_tile[0].x]->get_state() == BLOCK_ICE) 
 				{
-					if (state == STATE_EDGE)
-						break;
-					else
+					if (blocks[(int)cur_tile[i].y][(int)cur_tile[1].x - 1]->get_state() != BLOCK_ICE)
 					{
-						if (blocks[(int)cur_tile[i].y][(int)cur_tile[0].x - 1]->get_state() != BLOCK_ICE)
+						if (state == STATE_ICE)
 						{
 							correct_pos(blocks[(int)cur_tile[0].y][(int)cur_tile[0].x - 1]->get_rc());
 							state = STATE_EDGE;
 						}
+					}
+					else
+					{
+						if (state == STATE_EDGE)
+							state = STATE_ICE;
 					}
 				}
 				break;
 			case DIR_RIGHT:
 				if (blocks[(int)cur_tile[i].y][(int)cur_tile[0].x]->get_state() == BLOCK_ICE) 
 				{
-					if (state == STATE_EDGE)
-						break;
-					else
+					if (blocks[(int)cur_tile[i].y][(int)cur_tile[0].x + 1]->get_state() != BLOCK_ICE)
 					{
-						if (blocks[(int)cur_tile[i].y][(int)cur_tile[0].x + 1]->get_state() != BLOCK_ICE)
+						if (state == STATE_ICE)
 						{
 							correct_pos(blocks[(int)cur_tile[0].y][(int)cur_tile[1].x + 1]->get_rc());
 							state = STATE_EDGE;
 						}
+					}
+					else
+					{
+						if (state == STATE_EDGE)
+							state = STATE_ICE;			
 					}
 				}
 				break;
