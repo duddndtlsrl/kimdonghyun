@@ -55,11 +55,13 @@ void game_manager::input()
 	}
 	else
 	{
-		return;
+		if (player->get_state() != STATE_ICE)
+			return;
+		else
+			dir = 5;
 	}
 
 	player->set_cur_tile(blocks);
-	player->on_the_ice(blocks);
 	player->move(delta_time, dir);
 
 	return;
@@ -130,7 +132,7 @@ POINT game_manager::where_player()
 
 bool game_manager::set_enemy()
 {
-	enemy_count++;
+	/*enemy_count++;
 	if (enemy_count == 10)
 		return false;
 	enemy* q=new enemy();
@@ -142,7 +144,7 @@ bool game_manager::set_enemy()
 		p->init(12*BL_WIDTH, 0);
 	else
 		p->init(0, 0);
-	tanks.push_back(p);
+	tanks.push_back(p);*/
 		
 	return true;
 }
@@ -152,13 +154,7 @@ void game_manager::update(HWND hWnd)
 	cur_time = GetTickCount();
 	delta_time = (cur_time - last_time)/1000.f;
 	last_time = cur_time;
-	if (player->is_slip())
-	{
-		player->set_cur_tile(blocks);
-		player->move(delta_time);
-	}
-	else
-		input();
+	input();
 	
 	for (auto iter = tanks.begin(); iter != tanks.end(); iter++)
 	{

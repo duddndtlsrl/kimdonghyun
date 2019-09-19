@@ -10,6 +10,12 @@ enum DIR {
 	DIR_END
 };
 
+enum STATE {
+	STATE_GROUND,
+	STATE_ICE,
+	STATE_EDGE
+};
+
 class tank
 {
 protected:
@@ -21,13 +27,14 @@ protected:
 	RECT small_rc;
 	DIR direction = DIR_UP;
 	DIR last_dir;
+	STATE state = STATE_GROUND;
 	bool is_dead=false;
-	bool slip = false;
+	bool* flag = nullptr;
 public:
 	void init(float x, float y);
 	void set_rc();
 	void set_point();
-	virtual void move(float delta_time, int dir=5);
+	virtual void move(float delta_time, int dir);
 	BOOL is_collide(block* p);
 	RECT* get_rc();
 	DF* get_p();
@@ -35,10 +42,10 @@ public:
 	int get_dir();
 	void set_cur_tile(block* blocks[][13], bool enemy=false);
 	void correct_pos(RECT* rc);
-	void on_the_ice(block* blocks[][13]);
+	void edge_of_ice(block* blocks[][13]);
 	bool end_line();
-	bool is_slip();
 	void get_pos(float& x, float& y);
+	STATE get_state();
 	BOOL dead();
 	tank();
 	~tank();

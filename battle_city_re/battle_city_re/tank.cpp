@@ -38,12 +38,12 @@ void tank::set_point()
 
 void tank::move(float delta_time, int dir)
 {
-	if (dir == DIR_END)
+	if (state==STATE_ICE)
 		direction = last_dir;
 	else
 		direction = (DIR)dir;
 		
-	on_the_ice(game_manager::get_instance()->get_block());
+	edge_of_ice(game_manager::get_instance()->get_block());
 
 	if (game_manager::get_instance()->is_collide(this))
 		return;
@@ -124,6 +124,9 @@ void tank::set_cur_tile(block* blocks[][13], bool enemy)
 	else
 		rc = &small_rc;
 
+	if (state == STATE_EDGE)
+		flag = new bool();
+
 	for (int i = 0; i < 13; i++)
 	{
 		for (int j = 0; j < 13; j++)
@@ -131,7 +134,12 @@ void tank::set_cur_tile(block* blocks[][13], bool enemy)
 			if (blocks[i][j]->is_collide(rc))
 			{	
 				if (blocks[i][j]->get_state() == BLOCK_ICE)
-					slip = true;
+				{
+					if (state == STATE_EDGE)
+						*flag = false;
+					else
+						state = STATE_ICE;
+				}
 				
 				if (cur_tile[0].x != 13 && cur_tile[0].y != 13)
 				{
@@ -149,13 +157,18 @@ void tank::set_cur_tile(block* blocks[][13], bool enemy)
 		}
 	}
 	
+	if (flag != NULL && *flag)
+	{
+		state = STATE_GROUND;
+		flag = nullptr;
+	}
+
 	if (cur_tile[1].x == 13)
 		cur_tile[1].x = cur_tile[0].x;
 
 	if (cur_tile[1].y == 13)
 		cur_tile[1].y = cur_tile[0].y;
 
-	
 	return;
 }
 
@@ -173,40 +186,75 @@ void tank::correct_pos(RECT* rc)
 	return;
 }
 
-void tank::on_the_ice(block * blocks[][13])
+void tank::edge_of_ice(block * blocks[][13])
 {
-	if (slip && cur_tile[0] == cur_tile[1])
+	if (state==STATE_ICE || state==STATE_EDGE && cur_tile[0] | cur_tile[1])
 	{
-		switch (direction)
+		for(int i=0; i<2; i++)
 		{
-		case DIR_UP:
-			if (blocks[(int)cur_tile[0].y - 1][(int)cur_tile[0].x]->get_state() != BLOCK_ICE)
+			switch (direction)
 			{
-				correct_pos(blocks[(int)cur_tile[1].y - 1][(int)cur_tile[0].x]->get_rc());
-				slip = false;
+			case DIR_UP:
+				if (blocks[(int)cur_tile[0].y][(int)cur_tile[i].x]->get_state() == BLOCK_ICE)
+				{
+					if(blocks[(int)cur_tile[0].y-1][(int)cur_tile[i].x]->get_state() != BLOCK_ICE)
+					{
+						if (state == STATE_EDGE)
+							break;
+						else 
+						{
+							correct_pos(blocks[(int)cur_tile[1].y - 1][(int)cur_tile[0].x]->get_rc());
+							state = STATE_EDGE;
+						}
+					}
+				}
+				break;
+			case DIR_DOWN:
+				if (blocks[(int)cur_tile[0].y][(int)cur_tile[i].x]->get_state() == BLOCK_ICE)
+				{
+					if (state == STATE_EDGE)
+						break;
+					else
+					{
+						if (blocks[(int)cur_tile[0].y + 1][(int)cur_tile[i].x]->get_state() != BLOCK_ICE)
+						{
+							correct_pos(blocks[(int)cur_tile[0].y + 1][(int)cur_tile[0].x]->get_rc());
+							state = STATE_EDGE;
+						}
+					}
+				}
+				break;
+			case DIR_LEFT:
+				if (blocks[(int)cur_tile[i].y][(int)cur_tile[0].x]->get_state() == BLOCK_ICE) 
+				{
+					if (state == STATE_EDGE)
+						break;
+					else
+					{
+						if (blocks[(int)cur_tile[i].y][(int)cur_tile[0].x - 1]->get_state() != BLOCK_ICE)
+						{
+							correct_pos(blocks[(int)cur_tile[0].y][(int)cur_tile[0].x - 1]->get_rc());
+							state = STATE_EDGE;
+						}
+					}
+				}
+				break;
+			case DIR_RIGHT:
+				if (blocks[(int)cur_tile[i].y][(int)cur_tile[0].x]->get_state() == BLOCK_ICE) 
+				{
+					if (state == STATE_EDGE)
+						break;
+					else
+					{
+						if (blocks[(int)cur_tile[i].y][(int)cur_tile[0].x + 1]->get_state() != BLOCK_ICE)
+						{
+							correct_pos(blocks[(int)cur_tile[0].y][(int)cur_tile[1].x + 1]->get_rc());
+							state = STATE_EDGE;
+						}
+					}
+				}
+				break;
 			}
-			break;
-		case DIR_DOWN:
-			if (blocks[(int)cur_tile[0].y + 1][(int)cur_tile[0].x]->get_state() != BLOCK_ICE)
-			{
-				correct_pos(blocks[(int)cur_tile[1].y + 1][(int)cur_tile[0].x]->get_rc());
-				slip = false;
-			}
-			break;
-		case DIR_LEFT:
-			if (blocks[(int)cur_tile[0].y][(int)cur_tile[0].x - 1]->get_state() != BLOCK_ICE)
-			{
-				correct_pos(blocks[(int)cur_tile[0].y][(int)cur_tile[0].x - 1]->get_rc());
-				slip = false;
-			}
-			break;
-		case DIR_RIGHT:
-			if (blocks[(int)cur_tile[0].y][(int)cur_tile[0].x + 1]->get_state() != BLOCK_ICE)
-			{
-				correct_pos(blocks[(int)cur_tile[0].y][(int)cur_tile[1].x + 1]->get_rc());
-				slip = false;
-			}
-			break;
 		}
 	}
 
@@ -230,17 +278,15 @@ bool tank::end_line()
 
 }
 
-bool tank::is_slip()
-{
-	if(slip)
-		return true;
-	return false;
-}
-
 void tank::get_pos(float & x, float & y)
 {
 	x = pos_x;
 	y = pos_y;
+}
+
+STATE tank::get_state()
+{
+	return state;
 }
 
 BOOL tank::dead()
