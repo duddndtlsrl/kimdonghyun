@@ -4,6 +4,7 @@
 #include"tank.h"
 #include "block_nature.h"
 #include "enemy.h"
+#include "missile.h"
 
 void res_manager::init(HDC hdc)
 {	
@@ -53,7 +54,7 @@ void res_manager::init(HDC hdc)
 	return;
 }
 
-void res_manager::draw(HDC hdc, block* blocks[][13], vector<tank*>* tanks)
+void res_manager::draw(HDC hdc, block* blocks[][13], vector<tank*>* tanks, vector<missile*>* missiles)
 {
 	bitmap* back_bit=new bitmap();
 	back_bit->init(hdc, "", true);
@@ -81,6 +82,15 @@ void res_manager::draw(HDC hdc, block* blocks[][13], vector<tank*>* tanks)
 				enemy_bit[(p->get_dir()-1)*2]->draw(back_bit->get_dc(), x, y);
 			else
 				player_bit[((*iter)->get_dir()-1)*2]->draw(back_bit->get_dc(), x, y);
+		}
+	}
+	for (auto iter = missiles->begin(); iter != missiles->end(); iter++)
+	{
+		if ((*iter)->boom())
+			object_bit[OBJECT_MISSILE]->draw(back_bit->get_dc(), (*iter)->get_rc().left, (*iter)->get_rc().top);
+		else
+		{
+			effect_bit[(*iter)->get_effect()]->draw(back_bit->get_dc(), (*iter)->get_rc().left, (*iter)->get_rc().top);
 		}
 	}
 	for (int i = 0; i < 13; i++)

@@ -4,6 +4,7 @@
 #include "block_nature.h"
 #include "tank.h"
 #include "enemy.h"
+#include "missile.h"
 
 
 game_manager* game_manager :: instance = NULL;
@@ -20,6 +21,7 @@ void game_manager::init(HWND hWnd)
 	player = p;
 	p->init(0, 0);
 	tanks.push_back(p);
+	missiles.reserve(100);
 	load_map();
 	
 	cur_time = GetTickCount();
@@ -30,11 +32,6 @@ void game_manager::init(HWND hWnd)
 
 void game_manager::input()
 {	
-	if (GetKeyState(VK_SPACE) & 0x8000)
-	{
-
-	}
-
 	int dir;
 
 	if (GetKeyState(VK_UP) & 0x8000)
@@ -52,6 +49,13 @@ void game_manager::input()
 	else if (GetKeyState(VK_RIGHT) & 0x8000)
 	{
 		dir = 4;
+	}
+	
+	if (GetKeyState(VK_SPACE) & 0x8000)
+	{
+		float x, y;
+		player->get_pos(x, y);
+		set_missile(player->get_p(), dir);
 	}
 	else
 	{
@@ -149,6 +153,15 @@ bool game_manager::set_enemy()
 	return true;
 }
 
+void game_manager::set_missile(DF* df, int dir)
+{
+	missile* p = new missile();
+	p->init(df, dir);
+	missiles.push_back(p);
+
+	return;
+}
+
 void game_manager::update(HWND hWnd)
 {
 	cur_time = GetTickCount();
@@ -167,7 +180,7 @@ void game_manager::update(HWND hWnd)
 	}
 
 	HDC hdc = GetDC(hWnd);
-	res_manage->draw(hdc, blocks, &tanks);
+	res_manage->draw(hdc, blocks, &tanks, &missiles);
 	ReleaseDC(hWnd, hdc);
 	return;
 }

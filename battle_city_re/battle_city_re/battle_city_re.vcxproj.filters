@@ -39,6 +39,9 @@
     <ClCompile Include="win_main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="missile.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_manager.h">
@@ -60,6 +63,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="enemy.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="missile.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

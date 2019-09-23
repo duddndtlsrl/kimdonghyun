@@ -94,6 +94,7 @@ enum ICON
 class block;
 class tank;
 class bitmap;
+class missile;
 class res_manager
 {
 private:
@@ -105,7 +106,7 @@ private:
 	bitmap* object_bit[OBJECT_END];
 public:
 	void init(HDC hdc);
-	void draw(HDC hdc, block* blocks[][13], vector<tank*>* tanks);
+	void draw(HDC hdc, block* blocks[][13], vector<tank*>* tanks, vector<missile*>* missiles);
 	res_manager();
 	~res_manager();
 };

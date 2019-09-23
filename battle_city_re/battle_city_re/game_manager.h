@@ -15,6 +15,7 @@ enum COLLIDE
 class tank;
 class block;
 class res_manager;
+class missile;
 class game_manager
 {
 private:
@@ -23,6 +24,7 @@ private:
 	res_manager* res_manage;
 	block* blocks[13][13];
 	vector<tank*> tanks;
+	vector<missile*> missiles;
 	int stage=1;
 	int enemy_count = 0;
 	float delta_time;
@@ -43,6 +45,7 @@ public:
 	block* (*get_block())[13];
 	POINT where_player();
 	bool set_enemy();
+	void set_missile(DF* df, int dir);
 	game_manager();
 	~game_manager();
 };
