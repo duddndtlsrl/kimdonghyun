@@ -9,11 +9,12 @@ private:
 	DF mid_p;
 	RECT my_rc;
 	int count = 0;
-	bool boom = false;
+	bool is_boom = false;
 public:
 	void set_rc();
 	RECT get_rc();
 	void init(DF* df, int i);
+	void move(float delta_time);
 	EFFECT get_effect();
 	bool boom();
 	missile();

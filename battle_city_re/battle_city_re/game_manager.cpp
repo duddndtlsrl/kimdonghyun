@@ -32,38 +32,38 @@ void game_manager::init(HWND hWnd)
 
 void game_manager::input()
 {	
-	int dir;
+	int dir = 0;
 
 	if (GetKeyState(VK_UP) & 0x8000)
 	{
 		dir = 1;
 	}
-	else if (GetKeyState(VK_DOWN) & 0x8000)
+	if (GetKeyState(VK_DOWN) & 0x8000)
 	{
 		dir = 2;
 	}
-	else if (GetKeyState(VK_LEFT) & 0x8000)
+	if (GetKeyState(VK_LEFT) & 0x8000)
 	{
 		dir = 3;
 	}
-	else if (GetKeyState(VK_RIGHT) & 0x8000)
+	if (GetKeyState(VK_RIGHT) & 0x8000)
 	{
 		dir = 4;
 	}
-	
 	if (GetKeyState(VK_SPACE) & 0x8000)
 	{
 		float x, y;
 		player->get_pos(x, y);
 		set_missile(player->get_p(), dir);
 	}
-	else
+
+	if(dir==0)
 	{
 		if (player->get_state() != STATE_ICE)
-			return;
-		else
-			dir = 5;
+			return;	
 	}
+	
+	
 
 	player->set_cur_tile(blocks);
 	player->move(delta_time, dir);

@@ -20,6 +20,27 @@ void missile::set_rc()
 	}
 }
 
+void missile::move(float delta_time)
+{
+	switch (dir)
+	{
+	case: DIR_UP
+		mid_p.y -= delta_time * 100;
+		break;
+	case: DIR_DOWN
+		mid_p.y += delta_time * 100;
+		break;
+	case: DIR_LEFT
+		mid_p.x -= delta_time * 100;
+		break;
+	case: DIR_RIGHT
+		mid_p.x += delta_time * 100;
+		break;
+	}
+
+	return;
+}
+
 RECT missile::get_rc()
 {
 	return my_rc;
@@ -58,7 +79,7 @@ EFFECT missile::get_effect()
 
 bool missile::boom()
 {
-	if (boom)
+	if (is_boom)
 		return true;
 	return false;
 }
