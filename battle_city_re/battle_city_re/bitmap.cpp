@@ -18,7 +18,7 @@ void bitmap::init(HDC hdc, char* ch, bool back_bit)
 	return;
 }
 
-void bitmap::draw(HDC hdc, float pos_x, float pos_y, bool back_bit, bool block)
+void bitmap::draw(HDC hdc, float pos_x, float pos_y, bool back_bit, bool block, int x, int y)
 {
 	if (back_bit)
 	{
@@ -27,9 +27,9 @@ void bitmap::draw(HDC hdc, float pos_x, float pos_y, bool back_bit, bool block)
 	else
 	{
 		if(block)
-			TransparentBlt(hdc, BL_WIDTH*pos_x, BL_HEIGHT*pos_y, BL_WIDTH, BL_HEIGHT, mem_dc, 0, 0, bit_size.cx, bit_size.cy, RGB(255, 0, 255));
+			TransparentBlt(hdc, x*pos_x, y*pos_y, x, y, mem_dc, 0, 0, bit_size.cx, bit_size.cy, RGB(255, 0, 255));
 		else
-			TransparentBlt(hdc, pos_x, pos_y, BL_WIDTH, BL_HEIGHT, mem_dc, 0, 0, bit_size.cx, bit_size.cy, RGB(255, 0, 255));
+			TransparentBlt(hdc, pos_x, pos_y, x, y, mem_dc, 0, 0, bit_size.cx, bit_size.cy, RGB(255, 0, 255));
 	}
 
 	return;

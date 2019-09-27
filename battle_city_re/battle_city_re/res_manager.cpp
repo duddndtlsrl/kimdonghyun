@@ -33,7 +33,7 @@ void res_manager::init(HDC hdc)
 	for (int i = 0; i < OBJECT_END; i++)
 	{
 		object_bit[i] = new bitmap();
-		wsprintf(ch, "missile.bmp");
+		wsprintf(ch, "missile_0%d.bmp", i);
 		object_bit[i]->init(hdc, ch);
 	}
 	for (int i = 0; i < EFFECT_END; i++)
@@ -86,8 +86,15 @@ void res_manager::draw(HDC hdc, block* blocks[][13], vector<tank*>* tanks, vecto
 	}
 	for (auto iter = missiles->begin(); iter != missiles->end(); iter++)
 	{
-		if ((*iter)->boom())
-			object_bit[OBJECT_MISSILE]->draw(back_bit->get_dc(), (*iter)->get_rc().left, (*iter)->get_rc().top);
+		if (!(*iter)->boom())
+		{
+			int x, y;
+			if ((*iter)->get_object() < OBJECT_MISSILE_L)
+				x = 5, y = 8;
+			else
+				x = 8, y = 5;
+			object_bit[(*iter)->get_object()]->draw(back_bit->get_dc(), (*iter)->get_rc().left, (*iter)->get_rc().top, false, false, x, y);
+		}
 		else
 		{
 			effect_bit[(*iter)->get_effect()]->draw(back_bit->get_dc(), (*iter)->get_rc().left, (*iter)->get_rc().top);

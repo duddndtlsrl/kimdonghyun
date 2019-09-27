@@ -36,6 +36,11 @@ void tank::set_point()
 	mid_point.y = pos_y+(my_rc.bottom - my_rc.top) / 2;
 }
 
+void tank::set_dead(bool boolean)
+{
+	is_dead = boolean;
+}
+
 void tank::move(float delta_time, int dir)
 {
 	if (state==STATE_ICE)
@@ -98,6 +103,7 @@ RECT * tank::get_rc()
 
 DF * tank::get_p()
 {
+	missile_count = 0;//쿨타임 초기화
 	return &mid_point;
 }
 
@@ -109,6 +115,11 @@ DF * tank::get_tile()
 int tank::get_dir()
 {
 	return (int)direction;
+}
+
+int tank::get_count()
+{
+	return missile_count;
 }
 
 void tank::set_cur_tile(block* blocks[][13], bool enemy)
@@ -171,6 +182,8 @@ void tank::set_cur_tile(block* blocks[][13], bool enemy)
 
 	if (cur_tile[1].y == 13)
 		cur_tile[1].y = cur_tile[0].y;
+
+	missile_count++;
 
 	return;
 }

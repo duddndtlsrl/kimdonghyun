@@ -30,16 +30,19 @@ protected:
 	STATE state = STATE_GROUND;
 	bool is_dead=false;
 	bool* flag = nullptr;
+	int missile_count = 1000;
 public:
 	void init(float x, float y);
 	void set_rc();
 	void set_point();
+	void set_dead(bool boolean);
 	virtual void move(float delta_time, int dir);
 	BOOL is_collide(block* p);
 	RECT* get_rc();
 	DF* get_p();
 	DF* get_tile();
 	int get_dir();
+	int get_count();
 	void set_cur_tile(block* blocks[][13], bool enemy=false);
 	void correct_pos(RECT* rc);
 	void edge_of_ice(block* blocks[][13]);

@@ -43,6 +43,7 @@ public:
 	void load_map();
 	void input();
 	bool is_collide(tank* my);
+	bool is_collide(RECT* rc, DF mid);
 	block* (*get_block())[13];
 	POINT where_player();
 	bool set_enemy();

@@ -33,7 +33,8 @@ void game_manager::init(HWND hWnd)
 void game_manager::input()
 {	
 	int dir = 0;
-
+	player->set_cur_tile(blocks);
+	
 	if (GetKeyState(VK_UP) & 0x8000)
 	{
 		dir = 1;
@@ -52,9 +53,15 @@ void game_manager::input()
 	}
 	if (GetKeyState(VK_SPACE) & 0x8000)
 	{
-		float x, y;
-		player->get_pos(x, y);
-		set_missile(player->get_p(), dir);
+		if (player->get_count() >= 500)
+		{
+			float x, y;
+			player->get_pos(x, y);
+			if (dir == 0)
+				set_missile(player->get_p(), player->get_dir());
+			else
+				set_missile(player->get_p(), dir);
+		}
 	}
 
 	if(dir==0)
@@ -63,9 +70,6 @@ void game_manager::input()
 			return;	
 	}
 	
-	
-
-	player->set_cur_tile(blocks);
 	player->move(delta_time, dir);
 
 	return;
@@ -116,6 +120,20 @@ bool game_manager::is_collide(tank* my)
 		return true;
 
 	return false;
+}
+
+bool game_manager::is_collide(RECT * rc, DF mid)
+{
+	for (auto iter = tanks.begin(); iter != tanks.end(); iter++)
+	{
+		RECT rc_temp;
+		if(IntersectRect(&rc_temp, rc, (*iter)->get_rc()))
+			(*iter)->set_dead(true);
+	}
+	int pos_x=mid.x / BL_WIDTH, pos_y=mid.y / BL_HEIGHT;
+	{
+		
+	}
 }
 
 block *(*game_manager::get_block())[13]
@@ -177,6 +195,11 @@ void game_manager::update(HWND hWnd)
 			p->set_cur_tile(blocks, true);
 			p->move(delta_time);
 		}
+	}
+	for (auto iter = missiles.begin(); iter != missiles.end(); iter++)
+	{
+		(*iter)->move(delta_time);
+		
 	}
 
 	HDC hdc = GetDC(hWnd);
