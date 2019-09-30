@@ -56,7 +56,21 @@ OBJECT missile::get_object()
 
 void missile::is_collide()
 {
-	game_manager::get_instance()->
+	bool tank = false;
+	DF df=game_manager::get_instance()->is_collide(&my_rc, mid_p, dir, tank);
+	if (df.x == 13 && df.y == 13)
+		return;
+	else
+	{
+		if (tank)
+			effect=EFFECT_EX_TANK_0;
+		else
+			effect = EFFECT_EX_MISSILE_0;
+		
+		object = OBJECT_END;
+		mid_p = df;
+		is_boom = true;
+	}
 }
 
 void missile::init(DF* df, int i)
@@ -91,6 +105,10 @@ void missile::init(DF* df, int i)
 
 EFFECT missile::get_effect()
 {
+	count++;
+	if(!count)
+		count = (int)effect;
+	effect = (EFFECT)count;
 	return effect;
 }
 

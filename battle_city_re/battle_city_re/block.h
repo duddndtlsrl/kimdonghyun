@@ -13,7 +13,7 @@ public:
 	void set_rc();
 	void set_point();
 	DF* get_p();
-	virtual void get_damage();
+	virtual bool get_damage(int dir);
 	int get_state();
 	bool is_collide(RECT* rc);
 	POINT get_pt();

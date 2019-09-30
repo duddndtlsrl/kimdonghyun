@@ -87,19 +87,11 @@ void res_manager::draw(HDC hdc, block* blocks[][13], vector<tank*>* tanks, vecto
 	for (auto iter = missiles->begin(); iter != missiles->end(); iter++)
 	{
 		if (!(*iter)->boom())
-		{
-			int x, y;
-			if ((*iter)->get_object() < OBJECT_MISSILE_L)
-				x = 5, y = 8;
-			else
-				x = 8, y = 5;
-			object_bit[(*iter)->get_object()]->draw(back_bit->get_dc(), (*iter)->get_rc().left, (*iter)->get_rc().top, false, false, x, y);
-		}
+			object_bit[(*iter)->get_object()]->draw(back_bit->get_dc(), (*iter)->get_rc().left, (*iter)->get_rc().top, false, false, true);
 		else
-		{
-			effect_bit[(*iter)->get_effect()]->draw(back_bit->get_dc(), (*iter)->get_rc().left, (*iter)->get_rc().top);
-		}
+			effect_bit[(*iter)->get_effect()]->draw(back_bit->get_dc(), (*iter)->get_rc().left, (*iter)->get_rc().top, false, false, true);
 	}
+	
 	for (int i = 0; i < 13; i++)
 	{
 		for (int j = 0; j < 13; j++)

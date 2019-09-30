@@ -50,8 +50,38 @@ DF * block::get_p()
 	return &mid_point;
 }
 
-void block::get_damage()
+bool block::get_damage(int dir)
 {
+	if (state >= BLOCK_STONE_W && state <= BLOCK_STONE_R)
+		return true;
+	else if (state < BLOCK_STONE_W)
+	{
+		if (state == BLOCK_BRICK_W)
+		{
+			switch (dir)
+			{
+			case 1:
+				state = BLOCK_BRICK_U;
+				break;
+			case 2:
+				state = BLOCK_BRICK_D;
+				break;
+			case 3:
+				state = BLOCK_BRICK_L;
+				break;
+			case 4:
+				state = BLOCK_BRICK_R;
+				break;
+			}
+		}
+		else
+			state = BLOCK_END;
+
+		return true;
+	}
+	else
+		return false;
+
 }
 
 int block::get_state()

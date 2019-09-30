@@ -1,51 +1,10 @@
-﻿  bitmap.cpp
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\bitmap.cpp(30): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\bitmap.cpp(32): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  block.cpp
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\block.cpp(8): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\block.cpp(9): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\block.cpp(28): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\block.cpp(30): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\block.cpp(32): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\block.cpp(34): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\block.cpp(44): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\block.cpp(45): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  block_nature.cpp
-  enemy.cpp
-  game_manager.cpp
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\game_manager.cpp(27): warning C4244: '=': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\game_manager.cpp(28): warning C4244: '=': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\game_manager.cpp(136): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\game_manager.cpp(137): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\game_manager.cpp(171): warning C4244: '=': 'DWORD'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\game_manager.cpp(220): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  missile.cpp
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\missile.cpp(9): warning C4244: '=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  missile.cpp
 c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\missile.cpp(10): warning C4244: '=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\missile.cpp(11): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\missile.cpp(11): warning C4244: '=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\missile.cpp(12): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\missile.cpp(16): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\missile.cpp(13): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\missile.cpp(17): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\missile.cpp(18): warning C4244: '=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\missile.cpp(18): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\missile.cpp(19): warning C4244: '=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  res_manager.cpp
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\res_manager.cpp(69): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\res_manager.cpp(96): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\res_manager.cpp(100): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\res_manager.cpp(108): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  tank.cpp
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\tank.cpp(18): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\tank.cpp(19): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\tank.cpp(20): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\tank.cpp(21): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\tank.cpp(156): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\tank.cpp(158): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\tank.cpp(162): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\tank.cpp(163): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\tank.cpp(189): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\tank.cpp(191): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\tank.cpp(193): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\tank.cpp(195): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  win_main.cpp
-  코드를 생성하고 있습니다...
+c:\users\a10\kim\kimdonghyun\kimdonghyun\battle_city_re\battle_city_re\missile.cpp(20): warning C4244: '=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   battle_city_re.vcxproj -> C:\Users\A10\Kim\kimdonghyun\kimdonghyun\battle_city_re\Debug\battle_city_re.exe

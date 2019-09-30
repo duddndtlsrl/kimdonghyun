@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <vector>
 #include"res_manager.h"
+#include"tank.h"
 
 using namespace std;
 
@@ -43,7 +44,7 @@ public:
 	void load_map();
 	void input();
 	bool is_collide(tank* my);
-	bool is_collide(RECT* rc, DF mid);
+	DF is_collide(RECT* rc, DF mid, DIR dir, bool& tank);
 	block* (*get_block())[13];
 	POINT where_player();
 	bool set_enemy();

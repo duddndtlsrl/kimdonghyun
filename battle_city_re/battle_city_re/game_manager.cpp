@@ -53,7 +53,7 @@ void game_manager::input()
 	}
 	if (GetKeyState(VK_SPACE) & 0x8000)
 	{
-		if (player->get_count() >= 500)
+		if (player->get_count() >= 300)
 		{
 			float x, y;
 			player->get_pos(x, y);
@@ -122,18 +122,62 @@ bool game_manager::is_collide(tank* my)
 	return false;
 }
 
-bool game_manager::is_collide(RECT * rc, DF mid)
+DF game_manager::is_collide(RECT * rc, DF mid, DIR dir, bool& tank)
 {
+	RECT rc_temp;
+	DF df; df.x = 13, df.y = 13;
 	for (auto iter = tanks.begin(); iter != tanks.end(); iter++)
 	{
-		RECT rc_temp;
-		if(IntersectRect(&rc_temp, rc, (*iter)->get_rc()))
+		if (IntersectRect(&rc_temp, rc, (*iter)->get_rc()))
+		{
 			(*iter)->set_dead(true);
+			df = *((*iter)->get_p());
+			tank = true;
+			return df;
+		}
 	}
+	
 	int pos_x=mid.x / BL_WIDTH, pos_y=mid.y / BL_HEIGHT;
+	
+	if (pos_x < 0 || pos_x>12)
 	{
-		
+		if (dir == DIR_LEFT)
+			df.x = 0, df.y = mid.y;
+		if (dir == DIR_RIGHT)
+			df.x = 12, df.y = mid.y;
+
+		return df;
 	}
+
+	if (pos_y < 0 || pos_y>12)
+	{
+		if (dir == DIR_UP)
+			df.x = mid.x, df.y = 0;
+		if (dir == DIR_DOWN)
+			df.x = mid.x, df.y = 12;
+
+		return df;
+	}
+
+
+
+	for (int i = 0; i < 13; i++)
+	{
+		if (dir < DIR_LEFT && IntersectRect(&rc_temp, rc, blocks[i][pos_x]->get_rc()))
+			if (blocks[i][pos_x]->get_damage((int)dir))
+			{
+				df = *blocks[i][pos_x]->get_p();
+				break;
+			}
+		if(dir>DIR_DOWN && IntersectRect(&rc_temp, rc, blocks[pos_y][i]->get_rc()))
+			if (blocks[pos_y][i]->get_damage((int)dir))
+			{
+				df = *blocks[pos_y][i]->get_p();
+				break;
+			}
+	}
+
+	return df;
 }
 
 block *(*game_manager::get_block())[13]
@@ -198,8 +242,10 @@ void game_manager::update(HWND hWnd)
 	}
 	for (auto iter = missiles.begin(); iter != missiles.end(); iter++)
 	{
+		if ((*iter)->get_object() == OBJECT_END)
+			continue;
 		(*iter)->move(delta_time);
-		
+		(*iter)->is_collide();
 	}
 
 	HDC hdc = GetDC(hWnd);
